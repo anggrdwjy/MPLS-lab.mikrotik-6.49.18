@@ -1,0 +1,262 @@
+﻿[admin@PE7] > export
+# oct/18/2025 07:47:32 by RouterOS 6.49.19
+# software id = 
+#
+#
+#
+/interface bridge
+add name=lo0
+/interface ethernet
+set [ find default-name=ether1 ] comment=PE3 mtu=9000
+set [ find default-name=ether2 ] comment=PE3 mtu=9000
+set [ find default-name=ether3 ] comment=PE8 mtu=9000
+set [ find default-name=ether4 ] comment=PE8 mtu=9000
+set [ find default-name=ether5 ] comment=PE6 mtu=9000
+set [ find default-name=ether6 ] comment=PE6 mtu=9000
+set [ find default-name=ether7 ] comment=CE4 mtu=9000
+set [ find default-name=ether8 ] comment=CE5 mtu=9000
+/interface wireless security-profiles
+set [ find default=yes ] supplicant-identity=MikroTik
+/routing ospf area
+add area-id=0.0.0.20 name=area20
+add area-id=0.0.0.40 name=area40
+/routing ospf instance
+set [ find default=yes ] name=ospf100 router-id=192.168.150.6
+/ip address
+add address=192.168.150.6 comment=PE7 interface=lo0 network=192.168.150.6
+add address=172.16.20.70/30 comment=PE3 interface=ether1 network=172.16.20.68
+add address=172.16.20.66/30 comment=PE3 interface=ether2 network=172.16.20.64
+add address=172.16.20.41/30 comment=PE8 interface=ether3 network=172.16.20.40
+add address=172.16.20.45/30 comment=PE8 interface=ether4 network=172.16.20.44
+add address=172.16.20.34/30 comment=PE6 interface=ether5 network=172.16.20.32
+add address=172.16.20.38/30 comment=PE6 interface=ether6 network=172.16.20.36
+add address=172.16.20.101/30 comment=CE4 interface=ether7 network=\
+    172.16.20.100
+add address=172.16.20.105/30 comment=CE5 interface=ether8 network=\
+    172.16.20.104
+/routing ospf interface
+add cost=65000 interface=lo0 network-type=point-to-point passive=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=\
+    10s hello-interval=5s interface=ether1 network-type=point-to-point \
+    use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=\
+    10s hello-interval=5s interface=ether2 network-type=point-to-point \
+    use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=\
+    10s hello-interval=5s interface=ether3 network-type=point-to-point \
+    use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=\
+    10s hello-interval=5s interface=ether4 network-type=point-to-point \
+    use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=\
+    10s hello-interval=5s interface=ether5 network-type=point-to-point \
+    use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=\
+    10s hello-interval=5s interface=ether6 network-type=point-to-point \
+    use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=\
+    10s hello-interval=5s interface=ether7 network-type=point-to-point \
+    use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=\
+    10s hello-interval=5s interface=ether8 network-type=point-to-point \
+    use-bfd=yes
+/routing ospf network
+add area=backbone network=192.168.150.6/32
+add area=backbone network=172.16.20.64/30
+add area=backbone network=172.16.20.68/30
+add area=backbone network=172.16.20.40/30
+add area=backbone network=172.16.20.44/30
+add area=backbone network=172.16.20.32/30
+add area=backbone network=172.16.20.36/30
+add area=area40 network=172.16.20.100/30
+add area=area20 network=172.16.20.104/30
+/system identity
+set name=PE7
+[admin@PE7] > interface print
+Flags: D - dynamic, X - disabled, R - running, S - slave 
+ #     NAME                                TYPE       ACTUAL-MTU L2MTU
+ 0  R  ;;; PE3
+       ether1                              ether            9000
+ 1  R  ;;; PE3
+       ether2                              ether            9000
+ 2  R  ;;; PE8
+       ether3                              ether            9000
+ 3  R  ;;; PE8
+       ether4                              ether            9000
+ 4  R  ;;; PE6
+       ether5                              ether            9000
+ 5  R  ;;; PE6
+       ether6                              ether            9000
+ 6  R  ;;; CE4
+       ether7                              ether            9000
+ 7  R  ;;; CE5
+       ether8                              ether            9000
+ 8  R  lo0                                 bridge           1500 65535
+[admin@PE7] > ip address print
+Flags: X - disabled, I - invalid, D - dynamic 
+ #   ADDRESS            NETWORK         INTERFACE                              
+ 0   ;;; PE7
+     192.168.150.6/32   192.168.150.6   lo0                                    
+ 1   ;;; PE3
+     172.16.20.70/30    172.16.20.68    ether1                                 
+ 2   ;;; PE3
+     172.16.20.66/30    172.16.20.64    ether2                                 
+ 3   ;;; PE8
+     172.16.20.41/30    172.16.20.40    ether3                                 
+ 4   ;;; PE8
+     172.16.20.45/30    172.16.20.44    ether4                                 
+ 5   ;;; PE6
+     172.16.20.34/30    172.16.20.32    ether5                                 
+ 6   ;;; PE6
+     172.16.20.38/30    172.16.20.36    ether6                                 
+ 7   ;;; CE4
+     172.16.20.101/30   172.16.20.100   ether7                                 
+ 8   ;;; CE5
+     172.16.20.105/30   172.16.20.104   ether8                                 
+[admin@PE7] > ip neighbor print
+ # INTERFACE ADDRESS                                 MAC-ADDRESS      
+ 0 ether4    172.16.20.46                            50:6A:AE:00:23:03
+ 1 ether5    172.16.20.33                            50:3C:A3:00:21:04
+ 2 ether6    172.16.20.37                            50:3C:A3:00:21:05
+ 3 ether7    172.16.20.102                           50:0E:61:00:27:00
+ 4 ether8    172.16.20.106                           50:D2:E3:00:28:00
+ 5 ether3    172.16.20.42                            50:6A:AE:00:23:02
+[admin@PE7] > routing ospf network print
+Flags: X - disabled, I - invalid 
+ #   NETWORK            AREA                                                   
+ 0   192.168.150.6/32   backbone                                               
+ 1   172.16.20.64/30    backbone                                               
+ 2   172.16.20.68/30    backbone                                               
+ 3   172.16.20.40/30    backbone                                               
+ 4   172.16.20.44/30    backbone                                               
+ 5   172.16.20.32/30    backbone                                               
+ 6   172.16.20.36/30    backbone                                               
+ 7   172.16.20.100/30   area40                                                 
+ 8   172.16.20.104/30   area20                                                 
+[admin@PE7] > routing ospf interface print 
+Flags: X - disabled, I - inactive, D - dynamic, P - passive 
+ #    INTERFACE                 COST PRI NETWORK-TYPE   AUT... AUTHENTICATIO...
+ 0  P lo0                      65000   1 point-to-point none                   
+ 1    ether1                       1   1 point-to-point md5    multimedia123   
+ 2    ether2                       1   1 point-to-point md5    multimedia123   
+ 3    ether3                       1   1 point-to-point md5    multimedia123   
+ 4    ether4                       1   1 point-to-point md5    multimedia123   
+ 5    ether5                       1   1 point-to-point md5    multimedia123   
+ 6    ether6                       1   1 point-to-point md5    multimedia123   
+ 7    ether7                       1   1 point-to-point md5    multimedia123   
+ 8    ether8                       1   1 point-to-point md5    multimedia123   
+[admin@PE7] > routing ospf neighbor print
+ 0 instance=ospf100 router-id=192.168.10.6 address=172.16.20.106 
+   interface=ether8 priority=1 dr-address=0.0.0.0 backup-dr-address=0.0.0.0 
+   state="Full" state-changes=4 ls-retransmits=0 ls-requests=0 db-summaries=0 
+   adjacency=15h22m2s 
+
+ 1 instance=ospf100 router-id=192.168.10.5 address=172.16.20.102 
+   interface=ether7 priority=1 dr-address=0.0.0.0 backup-dr-address=0.0.0.0 
+   state="Full" state-changes=4 ls-retransmits=0 ls-requests=0 db-summaries=0 
+   adjacency=15h22m13s 
+
+ 2 instance=ospf100 router-id=192.168.150.7 address=172.16.20.37 
+   interface=ether6 priority=1 dr-address=0.0.0.0 backup-dr-address=0.0.0.0 
+   state="Full" state-changes=5 ls-retransmits=0 ls-requests=0 db-summaries=0 
+   adjacency=15h28m22s 
+
+ 3 instance=ospf100 router-id=192.168.150.7 address=172.16.20.33 
+   interface=ether5 priority=1 dr-address=0.0.0.0 backup-dr-address=0.0.0.0 
+   state="Full" state-changes=4 ls-retransmits=0 ls-requests=0 db-summaries=0 
+   adjacency=15h28m25s 
+
+ 4 instance=ospf100 router-id=192.168.150.5 address=172.16.20.46 
+   interface=ether4 priority=1 dr-address=0.0.0.0 backup-dr-address=0.0.0.0 
+   state="Full" state-changes=4 ls-retransmits=0 ls-requests=0 db-summaries=0 
+   adjacency=15h28m25s 
+
+ 5 instance=ospf100 router-id=192.168.150.5 address=172.16.20.42 
+   interface=ether3 priority=1 dr-address=0.0.0.0 backup-dr-address=0.0.0.0 
+   state="Full" state-changes=4 ls-retransmits=0 ls-requests=0 db-summaries=0 
+   adjacency=15h28m25s 
+[admin@PE7] > routing ospf route print
+ # DST-ADDRESS        STATE          COST         GATEWAY         INTERFACE    
+ 0 172.16.20.0/30     intra-area     3            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+ 1 172.16.20.4/30     intra-area     3            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+ 2 172.16.20.8/30     intra-area     3            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+ 3 172.16.20.12/30    intra-area     3            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+ 4 172.16.20.24/30    intra-area     2            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+ 5 172.16.20.28/30    intra-area     2            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+ 6 172.16.20.32/30    intra-area     1            0.0.0.0         ether5       
+ 7 172.16.20.36/30    intra-area     1            0.0.0.0         ether6       
+ 8 172.16.20.40/30    intra-area     1            0.0.0.0         ether3       
+ 9 172.16.20.44/30    intra-area     1            0.0.0.0         ether4       
+10 172.16.20.48/30    intra-area     3            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+11 172.16.20.52/30    intra-area     3            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+12 172.16.20.56/30    intra-area     2            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+13 172.16.20.60/30    intra-area     2            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+14 172.16.20.64/30    intra-area     1            0.0.0.0         ether2       
+15 172.16.20.68/30    intra-area     1            0.0.0.0         ether1       
+16 172.16.20.72/30    intra-area     2            172.16.20.42    ether3       
+                                                  172.16.20.46    ether4       
+17 172.16.20.76/30    intra-area     2            172.16.20.42    ether3       
+                                                  172.16.20.46    ether4       
+18 172.16.20.80/30    inter-area     3            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+19 172.16.20.84/30    inter-area     3            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+20 172.16.20.88/30    inter-area     2            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+21 172.16.20.92/30    intra-area     3            172.16.20.102   ether7       
+22 172.16.20.96/30    intra-area     2            172.16.20.102   ether7       
+23 172.16.20.100/30   intra-area     1            0.0.0.0         ether7       
+24 172.16.20.104/30   intra-area     1            0.0.0.0         ether8       
+25 172.16.20.108/30   intra-area     2            172.16.20.106   ether8       
+26 172.16.20.112/30   intra-area     3            172.16.20.106   ether8       
+27 172.16.20.128/30   inter-area     5            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+28 172.16.20.132/30   inter-area     4            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+29 172.16.20.136/30   inter-area     3            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+30 172.16.20.140/30   inter-area     3            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+31 172.16.20.144/30   inter-area     4            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+32 172.16.20.148/30   inter-area     4            172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+33 192.168.10.2/32    inter-area     65003        172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+34 192.168.10.3/32    inter-area     65002        172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+35 192.168.10.4/32    intra-area     65002        172.16.20.102   ether7       
+36 192.168.10.5/32    intra-area     65001        172.16.20.102   ether7       
+37 192.168.10.6/32    intra-area     65001        172.16.20.106   ether8       
+38 192.168.10.7/32    intra-area     65002        172.16.20.106   ether8       
+39 192.168.10.10/32   inter-area     65004        172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+40 192.168.10.11/32   inter-area     65003        172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+41 192.168.10.12/32   inter-area     65003        172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+42 192.168.10.13/32   inter-area     65004        172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+43 192.168.150.1/32   intra-area     65003        172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+44 192.168.150.2/32   intra-area     65002        172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+45 192.168.150.5/32   intra-area     65001        172.16.20.42    ether3       
+                                                  172.16.20.46    ether4       
+46 192.168.150.6/32   intra-area     65000        0.0.0.0         lo0          
+47 192.168.150.7/32   intra-area     65001        172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+48 192.168.150.8/32   intra-area     65002        172.16.20.33    ether5       
+                                                  172.16.20.37    ether6       
+
+[admin@PE7] > 

@@ -1,0 +1,222 @@
+﻿[admin@PE5] > export
+# oct/18/2025 07:48:38 by RouterOS 6.49.19
+# software id = 
+#
+#
+#
+/interface bridge
+add name=lo0
+/interface ethernet
+set [ find default-name=ether1 ] comment=PE1 mtu=9000
+set [ find default-name=ether2 ] comment=PE1 mtu=9000
+set [ find default-name=ether3 ] comment=PE6 mtu=9000
+set [ find default-name=ether4 ] comment=PE6 mtu=9000
+set [ find default-name=ether5 ] comment=CE1 mtu=9000
+/interface wireless security-profiles
+set [ find default=yes ] supplicant-identity=MikroTik
+/routing ospf area
+add area-id=0.0.0.10 name=area10
+/routing ospf instance
+set [ find default=yes ] name=ospf100 router-id=192.168.150.8
+/ip address
+add address=192.168.150.8 comment=PE5 interface=lo0 network=192.168.150.8
+add address=172.16.20.54/30 comment=PE1 interface=ether1 network=172.16.20.52
+add address=172.16.20.50/30 comment=PE1 interface=ether2 network=172.16.20.48
+add address=172.16.20.25/30 comment=PE6 interface=ether3 network=172.16.20.24
+add address=172.16.20.29/30 comment=PE6 interface=ether4 network=172.16.20.28
+add address=172.16.20.81/30 comment=CE1 interface=ether5 network=172.16.20.80
+/routing ospf interface
+add cost=65000 interface=lo0 network-type=point-to-point passive=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=10s hello-interval=5s interface=ether1 network-type=point-to-point use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=10s hello-interval=5s interface=ether2 network-type=point-to-point use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=10s hello-interval=5s interface=ether3 network-type=point-to-point use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=10s hello-interval=5s interface=ether4 network-type=point-to-point use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=10s hello-interval=5s interface=ether5 network-type=point-to-point use-bfd=yes
+/routing ospf network
+add area=backbone network=192.168.150.8/32
+add area=backbone network=172.16.20.24/30
+add area=backbone network=172.16.20.28/30
+add area=backbone network=172.16.20.52/30
+add area=backbone network=172.16.20.48/30
+add area=area10 network=172.16.20.80/30
+/system identity
+set name=PE5
+[admin@PE5] > interface print
+Flags: D - dynamic, X - disabled, R - running, S - slave 
+ #     NAME                                TYPE       ACTUAL-MTU L2MTU  MAX-L2MTU MAC-ADDRESS      
+ 0  R  ;;; PE1
+       ether1                              ether            9000                  50:6A:3B:00:20:00
+ 1  R  ;;; PE1
+       ether2                              ether            9000                  50:6A:3B:00:20:01
+ 2  R  ;;; PE6
+       ether3                              ether            9000                  50:6A:3B:00:20:02
+ 3  R  ;;; PE6
+       ether4                              ether            9000                  50:6A:3B:00:20:03
+ 4  R  ;;; CE1
+       ether5                              ether            9000                  50:6A:3B:00:20:04
+ 5  R  ether6                              ether            1500                  50:6A:3B:00:20:05
+ 6  R  ether7                              ether            1500                  50:6A:3B:00:20:06
+ 7  R  ether8                              ether            1500                  50:6A:3B:00:20:07
+ 8  R  lo0                                 bridge           1500 65535            7A:FA:7A:ED:B3:D1
+[admin@PE5] > ip address print
+Flags: X - disabled, I - invalid, D - dynamic 
+ #   ADDRESS            NETWORK         INTERFACE                                                                                                                                                                                       
+ 0   ;;; PE5
+     192.168.150.8/32   192.168.150.8   lo0                                                                                                                                                                                             
+ 1   ;;; PE1
+     172.16.20.54/30    172.16.20.52    ether1                                                                                                                                                                                          
+ 2   ;;; PE1
+     172.16.20.50/30    172.16.20.48    ether2                                                                                                                                                                                          
+ 3   ;;; PE6
+     172.16.20.25/30    172.16.20.24    ether3                                                                                                                                                                                          
+ 4   ;;; PE6
+     172.16.20.29/30    172.16.20.28    ether4                                                                                                                                                                                          
+ 5   ;;; CE1
+     172.16.20.81/30    172.16.20.80    ether5                                                                                                                                                                                          
+[admin@PE5] > ip neighbor print
+ # INTERFACE ADDRESS                                                                                                    MAC-ADDRESS       IDENTITY   VERSION    BOARD                                                                   
+ 0 ether1    172.16.20.53                                                                                               50:C8:14:00:1C:00 PE1        6.49.19... CHR                                                                     
+ 1 ether2    172.16.20.49                                                                                               50:C8:14:00:1C:01 PE1        6.49.19... CHR                                                                     
+ 2 ether3    172.16.20.26                                                                                               50:3C:A3:00:21:02 PE6        6.49.19... CHR                                                                     
+ 3 ether4    172.16.20.30                                                                                               50:3C:A3:00:21:03 PE6        6.49.19... CHR                                                                     
+ 4 ether5    172.16.20.82                                                                                               50:FA:7E:00:24:00 CE1        6.49.19... CHR                                                                     
+[admin@PE5] > routing ospf network print
+Flags: X - disabled, I - invalid 
+ #   NETWORK            AREA                                                                                                                                                                                                            
+ 0   192.168.150.8/32   backbone                                                                                                                                                                                                        
+ 1   172.16.20.24/30    backbone                                                                                                                                                                                                        
+ 2   172.16.20.28/30    backbone                                                                                                                                                                                                        
+ 3   172.16.20.52/30    backbone                                                                                                                                                                                                        
+ 4   172.16.20.48/30    backbone                                                                                                                                                                                                        
+ 5   172.16.20.80/30    area10                                                                                                                                                                                                          
+[admin@PE5] > routing ospf interface print 
+Flags: X - disabled, I - inactive, D - dynamic, P - passive 
+ #    INTERFACE                                                                                                                                                           COST PRIORITY NETWORK-TYPE   AUTHENTICATION AUTHENTICATION-KEY
+ 0  P lo0                                                                                                                                                                65000        1 point-to-point none                             
+ 1    ether1                                                                                                                                                                 1        1 point-to-point md5            multimedia123     
+ 2    ether2                                                                                                                                                                 1        1 point-to-point md5            multimedia123     
+ 3    ether3                                                                                                                                                                 1        1 point-to-point md5            multimedia123     
+ 4    ether4                                                                                                                                                                 1        1 point-to-point md5            multimedia123     
+ 5    ether5                                                                                                                                                                 1        1 point-to-point md5            multimedia123     
+[admin@PE5] > routing ospf neighbor print
+ 0 instance=ospf100 router-id=192.168.10.2 address=172.16.20.82 interface=ether5 priority=1 dr-address=0.0.0.0 backup-dr-address=0.0.0.0 state="Full" state-changes=4 ls-retransmits=0 ls-requests=0 db-summaries=0 adjacency=16h18m14s 
+
+ 1 instance=ospf100 router-id=192.168.150.1 address=172.16.20.53 interface=ether1 priority=1 dr-address=0.0.0.0 backup-dr-address=0.0.0.0 state="Full" state-changes=4 ls-retransmits=0 ls-requests=0 db-summaries=0 adjacency=20h46m7s 
+
+ 2 instance=ospf100 router-id=192.168.150.1 address=172.16.20.49 interface=ether2 priority=1 dr-address=0.0.0.0 backup-dr-address=0.0.0.0 state="Full" state-changes=4 ls-retransmits=0 ls-requests=0 db-summaries=0 adjacency=20h46m7s 
+
+ 3 instance=ospf100 router-id=192.168.150.7 address=172.16.20.30 interface=ether4 priority=1 dr-address=0.0.0.0 backup-dr-address=0.0.0.0 state="Full" state-changes=4 ls-retransmits=0 ls-requests=0 db-summaries=0 adjacency=21h39m53s 
+
+ 4 instance=ospf100 router-id=192.168.150.7 address=172.16.20.26 interface=ether3 priority=1 dr-address=0.0.0.0 backup-dr-address=0.0.0.0 state="Full" state-changes=4 ls-retransmits=0 ls-requests=0 db-summaries=0 adjacency=21h39m53s 
+[admin@PE5] > routing ospf route print
+ # DST-ADDRESS        STATE          COST                                                                                     GATEWAY         INTERFACE                                                                                 
+ 0 172.16.20.0/30     intra-area     2                                                                                        172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+ 1 172.16.20.4/30     intra-area     2                                                                                        172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+ 2 172.16.20.8/30     intra-area     3                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+                                                                                                                              172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+ 3 172.16.20.12/30    intra-area     3                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+                                                                                                                              172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+ 4 172.16.20.24/30    intra-area     1                                                                                        0.0.0.0         ether3                                                                                    
+ 5 172.16.20.28/30    intra-area     1                                                                                        0.0.0.0         ether4                                                                                    
+ 6 172.16.20.32/30    intra-area     2                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+ 7 172.16.20.36/30    intra-area     2                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+ 8 172.16.20.40/30    intra-area     3                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+ 9 172.16.20.44/30    intra-area     3                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+10 172.16.20.48/30    intra-area     1                                                                                        0.0.0.0         ether2                                                                                    
+11 172.16.20.52/30    intra-area     1                                                                                        0.0.0.0         ether1                                                                                    
+12 172.16.20.56/30    intra-area     2                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+13 172.16.20.60/30    intra-area     2                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+14 172.16.20.64/30    intra-area     3                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+15 172.16.20.68/30    intra-area     3                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+16 172.16.20.72/30    intra-area     4                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+17 172.16.20.76/30    intra-area     4                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+18 172.16.20.80/30    intra-area     1                                                                                        0.0.0.0         ether5                                                                                    
+19 172.16.20.84/30    intra-area     2                                                                                        172.16.20.82    ether5                                                                                    
+20 172.16.20.88/30    intra-area     3                                                                                        172.16.20.82    ether5                                                                                    
+21 172.16.20.92/30    inter-area     2                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+22 172.16.20.96/30    inter-area     3                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+23 172.16.20.100/30   inter-area     3                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+24 172.16.20.104/30   inter-area     3                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+25 172.16.20.108/30   inter-area     4                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+26 172.16.20.112/30   inter-area     4                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+27 172.16.20.128/30   inter-area     5                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+                                                                                                                              172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+28 172.16.20.132/30   inter-area     4                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+                                                                                                                              172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+29 172.16.20.136/30   inter-area     3                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+                                                                                                                              172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+30 172.16.20.140/30   inter-area     3                                                                                        172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+                                                                                                                              172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+31 172.16.20.144/30   inter-area     3                                                                                        172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+32 172.16.20.148/30   inter-area     2                                                                                        172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+33 192.168.10.2/32    intra-area     65001                                                                                    172.16.20.82    ether5                                                                                    
+34 192.168.10.3/32    intra-area     65002                                                                                    172.16.20.82    ether5                                                                                    
+35 192.168.10.4/32    inter-area     65002                                                                                    172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+36 192.168.10.5/32    inter-area     65003                                                                                    172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+37 192.168.10.6/32    inter-area     65003                                                                                    172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+38 192.168.10.7/32    inter-area     65004                                                                                    172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+39 192.168.10.10/32   inter-area     65004                                                                                    172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+                                                                                                                              172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+40 192.168.10.11/32   inter-area     65003                                                                                    172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+                                                                                                                              172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+41 192.168.10.12/32   inter-area     65003                                                                                    172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+                                                                                                                              172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+42 192.168.10.13/32   inter-area     65002                                                                                    172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+43 192.168.150.1/32   intra-area     65001                                                                                    172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+44 192.168.150.2/32   intra-area     65002                                                                                    172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+                                                                                                                              172.16.20.49    ether2                                                                                    
+                                                                                                                              172.16.20.53    ether1                                                                                    
+45 192.168.150.5/32   intra-area     65003                                                                                    172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+46 192.168.150.6/32   intra-area     65002                                                                                    172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+47 192.168.150.7/32   intra-area     65001                                                                                    172.16.20.26    ether3                                                                                    
+                                                                                                                              172.16.20.30    ether4                                                                                    
+48 192.168.150.8/32   intra-area     65000                                                                                    0.0.0.0         lo0                                                                                       
+
+[admin@PE5] > 
