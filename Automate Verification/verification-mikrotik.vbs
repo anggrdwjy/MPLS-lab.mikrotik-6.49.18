@@ -11,7 +11,7 @@
 '==========================================================================
 
 Sub Main
-	Const DEVICE_FILE_PATH = "verifikasi.txt"
+	Const DEVICE_FILE_PATH = "verification.txt"
 	Const TERM_PROMPT = "PE1"
 	
 	Dim fso
@@ -49,4 +49,5 @@ Sub Main
 	wend
 	fdevice.Close
 	
+
 End Sub
