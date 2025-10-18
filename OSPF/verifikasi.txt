@@ -1,1 +1,9 @@
+export
+interface print
+ip address print
+ip neighbor print
+routing ospf network print
+routing ospf interface print 
+routing ospf neighbor print
+routing ospf route print
 
