@@ -1,0 +1,150 @@
+﻿[admin@CE8] > export
+# oct/18/2025 11:45:21 by RouterOS 6.49.19
+# software id = 
+#
+#
+#
+/interface bridge
+add name=lo0
+/interface ethernet
+set [ find default-name=ether1 ] comment=PE3 mtu=9000
+set [ find default-name=ether2 ] comment=CE7 mtu=9000
+/interface wireless security-profiles
+set [ find default=yes ] supplicant-identity=MikroTik
+/routing ospf area
+add area-id=0.0.0.50 name=area50
+/routing ospf instance
+set [ find default=yes ] name=ospf100 router-id=192.168.10.9
+/ip address
+add address=192.168.10.9 comment=CE8 interface=lo0 network=192.168.10.9
+add address=172.16.20.126/30 comment=PE3 interface=ether1 network=172.16.20.124
+add address=172.16.20.121/30 comment=CE7 interface=ether2 network=172.16.20.120
+/ip dhcp-client
+add disabled=no interface=ether1
+/routing ospf interface
+add cost=65000 interface=lo0 network-type=point-to-point passive=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=10s hello-interval=5s \
+    interface=ether1 network-type=point-to-point use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=10s hello-interval=5s \
+    interface=ether2 network-type=point-to-point use-bfd=yes
+/routing ospf network
+add area=area50 network=192.168.10.9/32
+add area=area50 network=172.16.20.124/30
+add area=area50 network=172.16.20.120/30
+/system identity
+set name=CE8
+[admin@CE8] > interface print
+Flags: D - dynamic, X - disabled, R - running, S - slave 
+ #     NAME                                TYPE       ACTUAL-MTU L2MTU  MAX-L2MTU MAC-ADDRESS      
+ 0  R  ;;; PE3
+       ether1                              ether            9000                  50:14:3A:00:2B:00
+ 1  R  ;;; CE7
+       ether2                              ether            9000                  50:14:3A:00:2B:01
+ 2  R  ether3                              ether            1500                  50:14:3A:00:2B:02
+ 3  R  ether4                              ether            1500                  50:14:3A:00:2B:03
+ 4  R  ether5                              ether            1500                  50:14:3A:00:2B:04
+ 5  R  ether6                              ether            1500                  50:14:3A:00:2B:05
+ 6  R  ether7                              ether            1500                  50:14:3A:00:2B:06
+ 7  R  ether8                              ether            1500                  50:14:3A:00:2B:07
+ 8  R  lo0                                 bridge           1500 65535            22:B7:88:3F:CE:03
+[admin@CE8] > ip address print
+Flags: X - disabled, I - invalid, D - dynamic 
+ #   ADDRESS            NETWORK         INTERFACE                                                       
+ 0   ;;; CE8
+     192.168.10.9/32    192.168.10.9    lo0                                                             
+ 1   ;;; PE3
+     172.16.20.126/30   172.16.20.124   ether1                                                          
+ 2   ;;; CE7
+     172.16.20.121/30   172.16.20.120   ether2                                                          
+[admin@CE8] > ip neighbor print
+ # INTERFACE ADDRESS                                    MAC-ADDRESS       IDENTITY   VERSION    BOARD   
+ 0 ether1    172.16.20.125                              50:0A:4C:00:1E:06 PE3        6.49.19... CHR     
+ 1 ether2    172.16.20.122                              50:02:81:00:2A:01 CE7        6.49.19... CHR     
+[admin@CE8] > routing ospf network print
+Flags: X - disabled, I - invalid 
+ #   NETWORK            AREA                                                                            
+ 0   192.168.10.9/32    area50                                                                          
+ 1   172.16.20.124/30   area50                                                                          
+ 2   172.16.20.120/30   area50                                                                          
+[admin@CE8] > routing ospf interface print 
+Flags: X - disabled, I - inactive, D - dynamic, P - passive 
+ #    INTERFACE                           COST PRIORITY NETWORK-TYPE   AUTHENTICATION AUTHENTICATION-KEY
+ 0  P lo0                                65000        1 point-to-point none                             
+ 1    ether1                                 1        1 point-to-point md5            multimedia123     
+ 2    ether2                                 1        1 point-to-point md5            multimedia123     
+[admin@CE8] > routing ospf neighbor print
+ 0 instance=ospf100 router-id=192.168.10.8 address=172.16.20.122 interface=ether2 priority=1 
+   dr-address=0.0.0.0 backup-dr-address=0.0.0.0 state="Full" state-changes=4 ls-retransmits=0 
+   ls-requests=0 db-summaries=0 adjacency=7m13s 
+
+ 1 instance=ospf100 router-id=192.168.150.3 address=172.16.20.125 interface=ether1 priority=1 
+   dr-address=0.0.0.0 backup-dr-address=0.0.0.0 state="Full" state-changes=5 ls-retransmits=0 
+   ls-requests=0 db-summaries=0 adjacency=7m17s 
+[admin@CE8] > routing ospf route print
+ # DST-ADDRESS        STATE          COST                     GATEWAY         INTERFACE                 
+ 0 172.16.20.0/30     inter-area     3                        172.16.20.125   ether1                    
+ 1 172.16.20.4/30     inter-area     3                        172.16.20.125   ether1                    
+ 2 172.16.20.8/30     inter-area     2                        172.16.20.125   ether1                    
+ 3 172.16.20.12/30    inter-area     2                        172.16.20.125   ether1                    
+ 4 172.16.20.16/30    inter-area     2                        172.16.20.125   ether1                    
+ 5 172.16.20.20/30    inter-area     2                        172.16.20.125   ether1                    
+ 6 172.16.20.24/30    inter-area     4                        172.16.20.125   ether1                    
+ 7 172.16.20.28/30    inter-area     4                        172.16.20.125   ether1                    
+ 8 172.16.20.32/30    inter-area     3                        172.16.20.125   ether1                    
+ 9 172.16.20.36/30    inter-area     3                        172.16.20.125   ether1                    
+10 172.16.20.40/30    inter-area     3                        172.16.20.125   ether1                    
+11 172.16.20.44/30    inter-area     3                        172.16.20.125   ether1                    
+12 172.16.20.48/30    inter-area     4                        172.16.20.125   ether1                    
+13 172.16.20.52/30    inter-area     4                        172.16.20.125   ether1                    
+14 172.16.20.56/30    inter-area     3                        172.16.20.125   ether1                    
+15 172.16.20.60/30    inter-area     3                        172.16.20.125   ether1                    
+16 172.16.20.64/30    inter-area     2                        172.16.20.125   ether1                    
+17 172.16.20.68/30    inter-area     2                        172.16.20.125   ether1                    
+18 172.16.20.72/30    inter-area     3                        172.16.20.122   ether2                    
+                                                              172.16.20.125   ether1                    
+19 172.16.20.76/30    inter-area     3                        172.16.20.122   ether2                    
+                                                              172.16.20.125   ether1                    
+20 172.16.20.80/30    inter-area     5                        172.16.20.125   ether1                    
+21 172.16.20.84/30    inter-area     5                        172.16.20.125   ether1                    
+22 172.16.20.88/30    inter-area     4                        172.16.20.125   ether1                    
+23 172.16.20.92/30    inter-area     4                        172.16.20.125   ether1                    
+24 172.16.20.96/30    inter-area     4                        172.16.20.125   ether1                    
+25 172.16.20.100/30   inter-area     3                        172.16.20.125   ether1                    
+26 172.16.20.104/30   inter-area     3                        172.16.20.125   ether1                    
+27 172.16.20.108/30   inter-area     4                        172.16.20.125   ether1                    
+28 172.16.20.112/30   inter-area     4                        172.16.20.122   ether2                    
+                                                              172.16.20.125   ether1                    
+29 172.16.20.116/30   intra-area     2                        172.16.20.122   ether2                    
+30 172.16.20.120/30   intra-area     1                        0.0.0.0         ether2                    
+31 172.16.20.124/30   intra-area     1                        0.0.0.0         ether1                    
+32 172.16.20.128/30   inter-area     2                        172.16.20.125   ether1                    
+33 172.16.20.132/30   inter-area     3                        172.16.20.125   ether1                    
+34 172.16.20.136/30   inter-area     4                        172.16.20.125   ether1                    
+35 172.16.20.140/30   inter-area     3                        172.16.20.125   ether1                    
+36 172.16.20.144/30   inter-area     4                        172.16.20.125   ether1                    
+37 172.16.20.148/30   inter-area     4                        172.16.20.125   ether1                    
+38 192.168.10.2/32    inter-area     65005                    172.16.20.125   ether1                    
+39 192.168.10.3/32    inter-area     65004                    172.16.20.125   ether1                    
+40 192.168.10.4/32    inter-area     65004                    172.16.20.125   ether1                    
+41 192.168.10.5/32    inter-area     65003                    172.16.20.125   ether1                    
+42 192.168.10.6/32    inter-area     65003                    172.16.20.125   ether1                    
+43 192.168.10.7/32    inter-area     65004                    172.16.20.122   ether2                    
+                                                              172.16.20.125   ether1                    
+44 192.168.10.8/32    intra-area     65001                    172.16.20.122   ether2                    
+45 192.168.10.9/32    intra-area     65000                    0.0.0.0         lo0                       
+46 192.168.10.10/32   inter-area     65002                    172.16.20.125   ether1                    
+47 192.168.10.11/32   inter-area     65003                    172.16.20.125   ether1                    
+48 192.168.10.12/32   inter-area     65003                    172.16.20.125   ether1                    
+49 192.168.10.13/32   inter-area     65004                    172.16.20.125   ether1                    
+50 192.168.150.1/32   inter-area     65003                    172.16.20.125   ether1                    
+51 192.168.150.2/32   inter-area     65002                    172.16.20.125   ether1                    
+52 192.168.150.3/32   inter-area     65001                    172.16.20.125   ether1                    
+53 192.168.150.4/32   inter-area     65002                    172.16.20.122   ether2                    
+                                                              172.16.20.125   ether1                    
+54 192.168.150.5/32   inter-area     65003                    172.16.20.122   ether2                    
+                                                              172.16.20.125   ether1                    
+55 192.168.150.6/32   inter-area     65002                    172.16.20.125   ether1                    
+56 192.168.150.7/32   inter-area     65003                    172.16.20.125   ether1                    
+57 192.168.150.8/32   inter-area     65004                    172.16.20.125   ether1                    
+
+[admin@CE8] > 
