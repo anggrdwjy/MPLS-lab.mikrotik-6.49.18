@@ -1,0 +1,63 @@
+﻿[admin@CE1] > interface vpls export
+# oct/19/2025 13:07:14 by RouterOS 6.49.19
+# software id = 
+#
+#
+#
+/interface vpls
+add disabled=no l2mtu=1500 mac-address=02:4C:08:CB:1F:B3 name=vpls-l2c-2024 pw-type=tagged-ethernet \
+    remote-peer=192.168.10.8 vpls-id=2024:11
+[admin@CE1] > interface vpls print
+Flags: X - disabled, R - running, D - dynamic, B - bgp-signaled, C - cisco-bgp-signaled 
+ 0 R   name="vpls-l2c-2024" mtu=1500 l2mtu=1500 mac-address=02:4C:08:CB:1F:B3 arp=enabled 
+       arp-timeout=auto disable-running-check=no remote-peer=192.168.10.8 vpls-id=2024:11 
+       cisco-style=no cisco-style-id=0 advertised-l2mtu=1500 pw-type=tagged-ethernet 
+       use-control-word=default 
+[admin@CE1] > interface bridge export
+# oct/19/2025 13:07:14 by RouterOS 6.49.19
+# software id = 
+#
+#
+#
+/interface bridge
+add mtu=1998 name=l2c-2024
+add name=lo0
+/interface bridge port
+add bpdu-guard=yes bridge=l2c-2024 interface=ether3
+add bridge=l2c-2024 horizon=1 interface=vpls-l2c-2024
+[admin@CE1] > interface bridge print
+Flags: X - disabled, R - running 
+ 0 R name="l2c-2024" mtu=1998 actual-mtu=1500 l2mtu=1500 arp=enabled arp-timeout=auto 
+     mac-address=50:86:2F:00:24:02 protocol-mode=rstp fast-forward=yes igmp-snooping=no auto-mac=yes 
+     ageing-time=5m priority=0x8000 max-message-age=20s forward-delay=15s transmit-hold-count=6 
+     vlan-filtering=no dhcp-snooping=no 
+
+ 1 R name="lo0" mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto 
+     mac-address=62:77:66:1B:A0:DC protocol-mode=rstp fast-forward=yes igmp-snooping=no auto-mac=yes 
+     ageing-time=5m priority=0x8000 max-message-age=20s forward-delay=15s transmit-hold-count=6 
+     vlan-filtering=no dhcp-snooping=no 
+[admin@CE1] > interface bridge host print
+Flags: X - disabled, I - invalid, D - dynamic, L - local, E - external 
+ #       MAC-ADDRESS        VID ON-INTERFACE                 BRIDGE                 AGE                 
+ 0   DL  62:77:66:1B:A0:DC      lo0                          lo0                   
+ 1   D   00:50:79:66:68:35      vpls-l2c-2024                l2c-2024               1m52s               
+ 2   D   00:50:79:66:68:36      ether3                       l2c-2024               1m52s               
+ 3   DL  02:4C:08:CB:1F:B3      vpls-l2c-2024                l2c-2024              
+ 4   D   02:BF:8C:E7:0C:1B      vpls-l2c-2024                l2c-2024               1s                  
+ 5   DL  50:86:2F:00:24:02      ether3                       l2c-2024              
+[admin@CE1] > mpls ldp neighbor print brief
+Flags: X - disabled, D - dynamic, O - operational, T - sending-targeted-hello, V - vpls 
+ #      TRANSPORT       LOCAL-TRANSPORT PEER                       SEND-TARGETED ADDRESSES      
+ 0  OT  192.168.10.3    192.168.10.2    192.168.10.3:0             yes           172.16.20.86   
+                                                                                 172.16.20.90   
+                                                                                 192.168.10.3   
+ 1  OT  192.168.150.8   192.168.10.2    192.168.150.8:0            yes           172.16.20.25   
+                                                                                 172.16.20.29   
+                                                                                 172.16.20.50   
+                                                                                 172.16.20.54   
+                                                                                 172.16.20.81   
+                                                                                 192.168.150.8  
+ 2 DOTV 192.168.10.8    192.168.10.2    192.168.10.8:0             yes           172.16.20.118  
+                                                                                 172.16.20.122  
+                                                                                 192.168.10.8   
+[admin@CE1] > 
