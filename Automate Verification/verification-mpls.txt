@@ -1,0 +1,60 @@
+ping src-address=192.168.150.1 192.168.150.2 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.150.3 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.150.4 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.150.5 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.150.6 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.150.7 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.150.8 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.2 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.3 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.4 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.5 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.6 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.7 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.8 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.9 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.10 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.11 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.12 do-not-fragment size=9000
+ping src-address=192.168.150.1 192.168.10.13 do-not-fragment size=9000
+
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.150.2 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.150.3 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.150.4 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.150.5 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.150.6 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.150.7 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.150.8 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.2 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.3 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.4 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.5 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.6 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.7 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.8 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.9 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.10 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.11 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.12 size=9000
+/mpls ldp neighbor> /ping src-address=192.168.150.1 192.168.10.13 size=9000
+
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.150.2
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.150.3
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.150.4
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.150.5
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.150.6
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.150.7
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.150.8
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.2
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.3
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.4
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.5
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.6
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.7
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.8
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.9
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.10
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.11
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.12
+/mpls ldp neighbor> /tool traceroute src-address=192.168.150.1 192.168.10.13
+
