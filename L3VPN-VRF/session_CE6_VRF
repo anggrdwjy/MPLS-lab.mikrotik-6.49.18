@@ -1,0 +1,50 @@
+﻿[admin@CE6] > ip address print
+Flags: X - disabled, I - invalid, D - dynamic 
+ #   ADDRESS            NETWORK         INTERFACE                                                          
+ 0   ;;; CE6
+     192.168.10.7/32    192.168.10.7    lo0                                                                
+ 1   ;;; PE8
+     172.16.20.114/30   172.16.20.112   ether1                                                             
+ 2   ;;; CE5
+     172.16.20.110/30   172.16.20.108   ether2                                                             
+ 3   ;;; l3vpn-2025
+     10.200.0.1/30      10.200.0.0      l3vpn-2025                                                         
+[admin@CE6] > interface bridge port export
+# nov/09/2025 08:23:40 by RouterOS 6.49.19
+# software id = 
+#
+#
+#
+/interface bridge port
+add bpdu-guard=yes bridge=l3vpn-2025 interface=ether3
+[admin@CE6] > interface bridge print
+Flags: X - disabled, R - running 
+ 0 R name="l3vpn-2025" mtu=1500 actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto 
+     mac-address=50:3C:BB:00:29:02 protocol-mode=rstp fast-forward=yes igmp-snooping=no auto-mac=yes 
+     ageing-time=5m priority=0x8000 max-message-age=20s forward-delay=15s transmit-hold-count=6 
+     vlan-filtering=no dhcp-snooping=no 
+
+ 1 R name="lo0" mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto 
+     mac-address=A2:CB:17:CF:AB:D9 protocol-mode=rstp fast-forward=yes igmp-snooping=no auto-mac=yes 
+     ageing-time=5m priority=0x8000 max-message-age=20s forward-delay=15s transmit-hold-count=6 
+     vlan-filtering=no dhcp-snooping=no 
+[admin@CE6] > ip route vrf export
+# nov/09/2025 08:23:40 by RouterOS 6.49.19
+# software id = 
+#
+#
+#
+/ip route vrf
+add export-route-targets=65000:2025 import-route-targets=65000:2025 interfaces=l3vpn-2025 \
+    route-distinguisher=65000:2025 routing-mark=l3vpn-2025
+[admin@CE6] > ip route vrf print brief
+Flags: X - disabled, I - inactive 
+ #   ROUTING-MARK IN ROUTE-DISTINGUISHER          IMPORT-ROUTE-TARGETS         EXPORT-ROUTE-TARGETS        
+ 0   l3vpn-2025   l3 65000:2025                   65000:2025                   65000:2025                  
+[admin@CE6] > routing bgp vpnv4-route print
+Flags: L - label-present 
+ #   ROUTE-DISTINGUISHER           DST-ADDRESS        GATEWAY            INTERFACE      IN-LABEL  OUT-LABEL
+ 0 L 65000:2025                    10.100.0.0/30      192.168.10.13      ether2               16         16
+ 1 L 65000:2025                    10.100.0.0/30      192.168.10.13      ether2               16         16
+ 2 L 65000:2025                    10.200.0.0/30                         l3vpn-2025           16
+[admin@CE6] > 

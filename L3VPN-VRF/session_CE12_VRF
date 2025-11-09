@@ -1,0 +1,52 @@
+﻿[admin@CE12] > ip address print
+Flags: X - disabled, I - invalid, D - dynamic 
+ #   ADDRESS            NETWORK         INTERFACE                              
+ 0   ;;; CE12
+     192.168.10.13/32   192.168.10.13   lo0                                    
+ 1   ;;; PE2
+     172.16.20.150/30   172.16.20.148   ether1                                 
+ 2   ;;; CE11
+     172.16.20.145/30   172.16.20.144   ether2                                 
+ 3   ;;; l3vpn-2025
+     10.100.0.1/30      10.100.0.0      l3vpn-2025                             
+[admin@CE12] > interface bridge port export
+# nov/09/2025 08:22:58 by RouterOS 6.49.19
+# software id = 
+#
+#
+#
+/interface bridge port
+add bpdu-guard=yes bridge=l3vpn-2025 interface=ether3
+[admin@CE12] > interface bridge print
+Flags: X - disabled, R - running 
+ 0 R name="l3vpn-2025" mtu=1500 actual-mtu=1500 l2mtu=65535 arp=enabled 
+     arp-timeout=auto mac-address=50:42:28:00:2F:02 protocol-mode=rstp 
+     fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m 
+     priority=0x8000 max-message-age=20s forward-delay=15s 
+     transmit-hold-count=6 vlan-filtering=no dhcp-snooping=no 
+
+ 1 R name="lo0" mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled 
+     arp-timeout=auto mac-address=66:EB:13:8E:FF:42 protocol-mode=rstp 
+     fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m 
+     priority=0x8000 max-message-age=20s forward-delay=15s 
+     transmit-hold-count=6 vlan-filtering=no dhcp-snooping=no 
+[admin@CE12] > ip route vrf export
+# nov/09/2025 08:22:58 by RouterOS 6.49.19
+# software id = 
+#
+#
+#
+/ip route vrf
+add export-route-targets=65000:2025 import-route-targets=65000:2025 \
+    interfaces=l3vpn-2025 route-distinguisher=65000:2025 routing-mark=\
+    l3vpn-2025
+[admin@CE12] > ip route vrf print brief
+Flags: X - disabled, I - inactive 
+ #   ROUTING-... IN ROUTE-DISTINGUISHER          IMPORT-ROUTE-TARGETS        
+ 0   l3vpn-2025  l3 65000:2025                   65000:2025                  
+[admin@CE12] > routing bgp vpnv4-route print
+Flags: L - label-present 
+ #   ROUTE-DISTINGUISHER            DST-ADDRESS        GATEWAY             IN..
+ 0 L 65000:2025                     10.200.0.0/30      192.168.10.7        et..
+ 1 L 65000:2025                     10.200.0.0/30      192.168.10.7        et..
+ 2 L 65000:2025                     10.100.0.0/30                          l3..
