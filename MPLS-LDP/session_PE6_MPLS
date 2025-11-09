@@ -1,0 +1,137 @@
+﻿[admin@PE6] > mpls export
+# oct/19/2025 12:36:12 by RouterOS 6.49.19
+# software id = 
+#
+#
+#
+/mpls interface
+set [ find default=yes ] mpls-mtu=9000
+/mpls ldp
+set enabled=yes lsr-id=192.168.150.7 transport-address=192.168.150.7
+/mpls ldp interface
+add interface=ether1
+add interface=ether2
+add interface=ether3
+add interface=ether4
+add interface=ether5
+add interface=ether6
+add interface=ether7
+add interface=ether8
+/mpls ldp neighbor
+add transport=192.168.10.3
+add transport=192.168.10.4
+add transport=192.168.150.8
+add transport=192.168.150.2
+add transport=192.168.150.6
+[admin@PE6] > mpls interface print
+Flags: X - disabled, * - default 
+ #    INTERFACE                                                                                 MPLS-MTU
+ 0  * all                                                                                           9000
+[admin@PE6] > mpls ldp interface print
+Flags: X - disabled, I - invalid 
+ #   INTERFACE                                                 HELLO-INTERVAL       HOLD-TIME           
+ 0   ether1                                                    5s                   15s                 
+ 1   ether2                                                    5s                   15s                 
+ 2   ether3                                                    5s                   15s                 
+ 3   ether4                                                    5s                   15s                 
+ 4   ether5                                                    5s                   15s                 
+ 5   ether6                                                    5s                   15s                 
+ 6   ether7                                                    5s                   15s                 
+ 7   ether8                                                    5s                   15s                 
+[admin@PE6] > mpls ldp neighbor print
+Flags: X - disabled, D - dynamic, O - operational, T - sending-targeted-hello, V - vpls 
+ #      TRANSPORT       LOCAL-TRANSPORT PEER                       SEND-TARGETED ADDRESSES      
+ 0 DO   192.168.150.8   192.168.150.7   192.168.150.8:0            no            172.16.20.25   
+                                                                                 172.16.20.29   
+                                                                                 172.16.20.50   
+                                                                                 172.16.20.54   
+                                                                                 172.16.20.81   
+                                                                                 192.168.150.8  
+ 1 DO   192.168.150.2   192.168.150.7   192.168.150.2:0            no            172.16.20.2    
+                                                                                 172.16.20.6    
+                                                                                 172.16.20.9    
+                                                                                 172.16.20.13   
+                                                                                 172.16.20.57   
+                                                                                 172.16.20.61   
+                                                                                 172.16.20.137  
+                                                                                 172.16.20.141  
+                                                                                 192.168.150.2  
+ 2  OT  192.168.10.3    192.168.150.7   192.168.10.3:0             yes           172.16.20.86   
+                                                                                 172.16.20.90   
+                                                                                 192.168.10.3   
+ 3  OT  192.168.10.4    192.168.150.7   192.168.10.4:0             yes           172.16.20.94   
+                                                                                 172.16.20.97   
+                                                                                 192.168.10.4   
+ 4   T  192.168.150.8                                              yes          
+ 5   T  192.168.150.2                                              yes          
+ 6  OT  192.168.150.6   192.168.150.7   192.168.150.6:0            yes           172.16.20.34   
+                                                                                 172.16.20.38   
+                                                                                 172.16.20.41   
+                                                                                 172.16.20.45   
+                                                                                 172.16.20.66   
+                                                                                 172.16.20.70   
+                                                                                 172.16.20.101  
+                                                                                 172.16.20.105  
+                                                                                 192.168.150.6  
+
+[admin@PE6] > forwarding-table print
+bad command name forwarding-table (line 1 column 1)
+[admin@PE6] > 
+[admin@PE6] > 
+[admin@PE6] > 
+[admin@PE6] > 
+[admin@PE6] > mpls forwarding-table print 
+Flags: H - hw-offload, L - ldp, V - vpls, T - traffic-eng 
+ #    IN-LABEL           OUT-LABELS       DESTINATION                    INTERFACE       NEXTHOP        
+ 0    expl-null         
+ 1  L 16                                  172.16.20.8/30                 ether2          172.16.20.57   
+ 2  L 17                                  192.168.10.3/32                ether7          172.16.20.90   
+ 3  L 18                 44               192.168.10.9/32                ether2          172.16.20.57   
+ 4  L 19                                  192.168.10.4/32                ether8          172.16.20.94   
+ 5  L 20                                  192.168.150.8/32               ether3          172.16.20.25   
+ 6  L 21                                  172.16.20.0/30                 ether2          172.16.20.57   
+ 7  L 22                 58               172.16.20.116/30               ether2          172.16.20.57   
+ 8  L 23                 45               192.168.150.3/32               ether2          172.16.20.57   
+ 9  L 24                 32               192.168.10.2/32                ether7          172.16.20.90   
+10  L 25                 53               172.16.20.144/30               ether2          172.16.20.57   
+11  L 26                                  172.16.20.140/30               ether2          172.16.20.57   
+12  L 27                 48               172.16.20.76/30                ether5          172.16.20.34   
+13  L 28                 43               192.168.10.8/32                ether2          172.16.20.57   
+14  L 29                                  172.16.20.52/30                ether3          172.16.20.25   
+15  L 30                                  172.16.20.44/30                ether5          172.16.20.34   
+16  L 31                 70               172.16.20.100/30               ether8          172.16.20.94   
+17  L 32                 62               192.168.10.5/32                ether8          172.16.20.94   
+18  L 33                 50               192.168.10.12/32               ether2          172.16.20.57   
+19  L 34                                  172.16.20.136/30               ether2          172.16.20.57   
+20  L 35                 33               172.16.20.128/30               ether2          172.16.20.57   
+21  L 36                                  172.16.20.64/30                ether5          172.16.20.34   
+22  L 37                 26               172.16.20.112/30               ether5          172.16.20.34   
+23  L 38                                  172.16.20.12/30                ether2          172.16.20.57   
+24  L 39                                  172.16.20.4/30                 ether2          172.16.20.57   
+25  L 40                 64               192.168.10.13/32               ether2          172.16.20.57   
+26  L 41                 40               192.168.10.10/32               ether2          172.16.20.57   
+27  L 42                 21               192.168.10.11/32               ether2          172.16.20.57   
+28  L 43                 26               172.16.20.124/30               ether2          172.16.20.57   
+29  L 44                 51               172.16.20.120/30               ether2          172.16.20.57   
+30  L 45                 37               172.16.20.72/30                ether5          172.16.20.34   
+31  L 46                 39               172.16.20.108/30               ether5          172.16.20.34   
+32  L 47                                  172.16.20.40/30                ether5          172.16.20.34   
+33  L 48                                  192.168.150.6/32               ether5          172.16.20.34   
+34  L 49                 17               172.16.20.20/30                ether2          172.16.20.57   
+35  L 50                                  172.16.20.104/30               ether5          172.16.20.34   
+36  L 51                 31               192.168.150.4/32               ether2          172.16.20.57   
+37  L 52                                  172.16.20.84/30                ether7          172.16.20.90   
+38  L 53                 30               192.168.150.5/32               ether5          172.16.20.34   
+39  L 54                                  172.16.20.68/30                ether5          172.16.20.34   
+40  L 55                 36               172.16.20.148/30               ether2          172.16.20.57   
+41  L 56                 20               172.16.20.16/30                ether2          172.16.20.57   
+42  L 57                 37               172.16.20.132/30               ether2          172.16.20.57   
+43  L 58                                  192.168.150.2/32               ether2          172.16.20.57   
+44  L 59                 31               172.16.20.80/30                ether7          172.16.20.90   
+45  L 60                                  172.16.20.96/30                ether8          172.16.20.94   
+46  L 61                                  172.16.20.48/30                ether3          172.16.20.25   
+47  L 62                 46               192.168.10.7/32                ether5          172.16.20.34   
+48  L 63                 24               192.168.150.1/32               ether2          172.16.20.57   
+49  L 64                 58               192.168.10.6/32                ether5          172.16.20.34   
+
+[admin@PE6] > 
