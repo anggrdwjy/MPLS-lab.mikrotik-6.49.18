@@ -1,6 +1,0 @@
-routing ospf export
-routing ospf area print
-routing ospf network print
-routing ospf interface print 
-routing ospf neighbor print
-routing ospf route print
