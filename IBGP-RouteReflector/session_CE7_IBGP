@@ -1,0 +1,21 @@
+﻿[admin@CE7] > routing bgp export
+# nov/09/2025 09:06:32 by RouterOS 6.49.19
+# software id = 
+#
+#
+#
+/routing bgp instance
+set default as=65000 cluster-id=192.168.10.8 router-id=192.168.10.8
+/routing bgp peer
+add address-families=vpnv4 name=RR1 remote-address=192.168.254.1 remote-as=65000 tcp-md5-key=multimedia123 update-source=lo0
+add address-families=vpnv4 name=RR2 remote-address=192.168.254.2 remote-as=65000 tcp-md5-key=multimedia123 update-source=lo0
+[admin@CE7] > routing bgp instance print
+Flags: * - default, X - disabled 
+ 0 *  name="default" as=65000 router-id=192.168.10.8 redistribute-connected=no redistribute-static=no redistribute-rip=no 
+      redistribute-ospf=no redistribute-other-bgp=no out-filter="" cluster-id=192.168.10.8 client-to-client-reflection=yes 
+      ignore-as-path-len=no routing-table="" 
+[admin@CE7] > routing bgp peer print
+Flags: X - disabled, E - established 
+ #   INSTANCE                                REMOTE-ADDRESS                                                         REMOTE-AS  
+ 0 E default                                 192.168.254.1                                                          65000      
+ 1 E default                                 192.168.254.2                                                          65000      
