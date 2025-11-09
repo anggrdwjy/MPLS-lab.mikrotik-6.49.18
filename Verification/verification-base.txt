@@ -1,0 +1,5 @@
+export
+interface print
+ip address print
+ip neighbor print
+ip route print

@@ -1,0 +1,49 @@
+#Base
+export
+interface print
+ip address print
+ip neighbor print
+ip route print
+
+#OSPF
+routing ospf export
+routing ospf area print
+routing ospf network print
+routing ospf interface print 
+routing ospf neighbor print
+routing ospf route print
+
+#MPLS-LDP
+mpls export
+mpls interface print
+mpls ldp interface print
+mpls ldp neighbor print
+mpls forwarding-table print
+
+#IBGP
+routing bgp export
+routing bgp instance print
+routing bgp peer print
+
+#VPLS
+interface vpls export
+interface vpls print
+interface bridge port export
+interface bridge print
+interface bridge host print
+mpls ldp neighbor print brief
+
+#VRF
+ip address print
+interface bridge port export
+interface bridge print
+ip route vrf export
+ip route vrf print
+routing bgp vpnv4-route print
+
+
+
+
+
+
+

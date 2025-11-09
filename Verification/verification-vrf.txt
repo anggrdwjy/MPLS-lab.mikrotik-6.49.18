@@ -1,0 +1,6 @@
+ip address print
+interface bridge port export
+interface bridge print
+ip route vrf export
+ip route vrf print
+routing bgp vpnv4-route print

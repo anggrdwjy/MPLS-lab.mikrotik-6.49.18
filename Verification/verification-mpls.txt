@@ -1,0 +1,5 @@
+mpls export
+mpls interface print
+mpls ldp interface print
+mpls ldp neighbor print
+mpls forwarding-table print
