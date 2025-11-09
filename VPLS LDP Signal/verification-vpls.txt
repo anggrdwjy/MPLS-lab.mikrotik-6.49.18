@@ -1,0 +1,6 @@
+interface vpls export
+interface vpls print
+interface bridge port export
+interface bridge print
+interface bridge host print
+mpls ldp neighbor print brief
