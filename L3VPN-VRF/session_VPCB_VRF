@@ -1,0 +1,43 @@
+﻿VPCS> set pcname VPCB
+
+VPCB> ip 10.200.0.2 255.255.255.252 10.200.0.1
+Checking for duplicate address...
+PC1 : 10.200.0.2 255.255.255.252 gateway 10.200.0.1
+
+VPCB> show
+
+NAME   IP/MASK              GATEWAY                             GATEWAY
+VPCB   10.200.0.2/30        10.200.0.1
+       fe80::250:79ff:fe66:6833/64
+
+VPCB> save
+Saving startup configuration to startup.vpc
+.  done
+
+VPCB> ping 10.100.0.1
+
+84 bytes from 10.100.0.1 icmp_seq=1 ttl=58 time=7.857 ms
+84 bytes from 10.100.0.1 icmp_seq=2 ttl=58 time=6.153 ms
+84 bytes from 10.100.0.1 icmp_seq=3 ttl=58 time=5.866 ms
+84 bytes from 10.100.0.1 icmp_seq=4 ttl=58 time=6.580 ms
+84 bytes from 10.100.0.1 icmp_seq=5 ttl=58 time=10.323 ms
+
+VPCB> ping 10.100.0.2
+
+84 bytes from 10.100.0.2 icmp_seq=1 ttl=57 time=8.187 ms
+84 bytes from 10.100.0.2 icmp_seq=2 ttl=57 time=6.804 ms
+84 bytes from 10.100.0.2 icmp_seq=3 ttl=57 time=7.158 ms
+84 bytes from 10.100.0.2 icmp_seq=4 ttl=57 time=17.982 ms
+84 bytes from 10.100.0.2 icmp_seq=5 ttl=57 time=7.193 ms
+
+VPCB> trace 10.100.0.2 -P 1
+trace to 10.100.0.2, 8 hops max (ICMP), press Ctrl+C to stop
+ 1     *  *  *
+ 2     *  *  *
+ 3     *  *  *
+ 4     *  *  *
+ 5     *  *  *
+ 6     *  *  *
+ 7     *  *  *
+ 8   10.100.0.2   6.980 ms  7.255 ms  7.808 ms
+
