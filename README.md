@@ -20,6 +20,8 @@ This MPLS lab uses OSPFv2 routing
 <img src="OSPFv2/Topology OSPF Routing.png">
 </p>
 
+Document <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/OSPFv2">Document OSPFv2()</a>
+
 Verification OSPF Example
 
 ```
