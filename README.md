@@ -30,16 +30,6 @@ This MPLS lab uses OSPFv2 routing
 
 References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/OSPFv2">Routing OSPFv2</a>
 
-Verification OSPF Example
-
-```
-routing ospf export
-routing ospf area print
-routing ospf network print
-routing ospf interface print 
-routing ospf neighbor print
-routing ospf route print
-```
 
 ## MPLS LDP
 
@@ -53,15 +43,6 @@ LDP is a protocol that automatically generates and exchanges labels between rout
 
 References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/MPLS-LDP">MPLS LDP</a>
 
-Verification MPLS LDP Example
-
-```
-mpls export
-mpls interface print
-mpls ldp interface print
-mpls ldp neighbor print
-mpls forwarding-table print
-```
 
 ## MPLS L2VPN Virtual Private LAN Services
 
@@ -75,16 +56,6 @@ VPLS, in its implementation and configuration, has much in common with a Layer 2
 
 References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L2VPN-VPLS">MPLS L2VPN VPLS</a>
 
-Verification VPLS Example
-
-```
-interface vpls export
-interface vpls print
-interface bridge port export
-interface bridge print
-interface bridge host print
-mpls ldp neighbor print brief
-```
 
 ## IBGP Router Reflector Concept
 
@@ -104,13 +75,6 @@ Router Reflector (RR2)
 
 References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/IBGP-RouteReflector">IBGP ROUTE REFLECTOR</a>
 
-Verification IBGP Example
-
-```
-routing bgp export
-routing bgp instance print
-routing bgp peer print
-```
 
 ## MPLS L3VPN Virtual Routing Forwarding
 
@@ -122,16 +86,6 @@ L3VPN in BGP (specifically BGP/MPLS IP VPN) works by using Multiprotocol BGP (MP
 
 References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L3VPN-VRF">MPLS L3VPN VRF</a>
 
-Verification L3VPN VRF Example
-
-```
-ip address print
-interface bridge port export
-interface bridge print
-ip route vrf export
-ip route vrf print brief
-routing bgp vpnv4-route print
-```
 
 ## Verification with Script
 
