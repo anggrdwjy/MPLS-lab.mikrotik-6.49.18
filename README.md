@@ -139,7 +139,15 @@ End Sub
 
 ```
 
-## Support
+### Support
 
 * [:octocat: Follow me on GitHub](https://github.com/anggrdwjy)
 * [🔔 Subscribe me on Youtube](https://www.youtube.com/@anggarda.wijaya)
+
+
+### Bugs
+
+Please open an issue on GitHub with as much information as possible if you found a bug.
+* Your Proxmox and PNETLAB Version
+* All the logs and message outputted
+* etc
