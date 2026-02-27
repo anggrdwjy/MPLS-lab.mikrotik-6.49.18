@@ -20,6 +20,17 @@ This MPLS lab uses OSPFv2 routing
 <img src="OSPFv2/Topology OSPF Routing.png">
 </p>
 
+Verification OSPF Example
+
+```
+routing ospf export
+routing ospf area print
+routing ospf network print
+routing ospf interface print 
+routing ospf neighbor print
+routing ospf route print
+```
+
 ## MPLS LDP
 
 Multi-Protocol Label Switching (MPLS) is an advanced packet-forwarding technique used in modern networks. Instead of making routers look into complex Layer 3 routing tables for every IP packet, MPLS uses labels for forwarding decisions. These labels create pre-defined, efficient paths across the network, which enhances speed, scalability and traffic management.
@@ -30,6 +41,15 @@ LDP is a protocol that automatically generates and exchanges labels between rout
 <img src="MPLS-LDP/Topology MPLS LDP Signaling.png">
 </p>
 
+Verification MPLS LDP Example
+
+```
+mpls export
+mpls interface print
+mpls ldp interface print
+mpls ldp neighbor print
+mpls forwarding-table print
+```
 
 ## L2VPN Virtual Private LAN Services
 
@@ -41,6 +61,16 @@ VPLS, in its implementation and configuration, has much in common with a Layer 2
 <img src="L2VPN-VPLS/Topology VPLS CE1-CE7.png">
 </p>
 
+Verification VPLS Example
+
+```
+interface vpls export
+interface vpls print
+interface bridge port export
+interface bridge print
+interface bridge host print
+mpls ldp neighbor print brief
+```
 
 ## IBGP Router Reflector Concept
 
@@ -58,6 +88,14 @@ Router Reflector (RR2)
 <img src="IBGP-RouteReflector/Topology Route-Reflector RR2.png">
 </p>
 
+Verification IBGP Example
+
+```
+routing bgp export
+routing bgp instance print
+routing bgp peer print
+```
+
 ## L3VPN Virtual Routing Forwarding
 
 L3VPN in BGP (specifically BGP/MPLS IP VPN) works by using Multiprotocol BGP (MP-BGP) to distribute customer routes between Provider Edge (PE) routers, while using MPLS to tunnel traffic across the backbone. PE routers use VRFs to maintain separate routing tables per customer, assign Route Distinguishers (RDs) to make routes unique, and use Route Targets (RTs) to control route import/export
@@ -66,6 +104,17 @@ L3VPN in BGP (specifically BGP/MPLS IP VPN) works by using Multiprotocol BGP (MP
 <img src="L3VPN-VRF/Topology VRF CE6-CE12.png">
 </p>
 
+Verification L3VPN VRF Example
+
+```
+ip address print
+interface bridge port export
+interface bridge print
+ip route vrf export
+ip route vrf print brief
+routing bgp vpnv4-route print
+```
+
 ## Verification with Script
 
 Example Verification (Traceroute)
@@ -73,6 +122,53 @@ Example Verification (Traceroute)
 <p align="center">
 <img src="Verification/Traceroute Test-3.png">
 </p>
+
+Verification All Example
+
+```
+#Base
+export
+interface print
+ip address print
+ip neighbor print
+ip route print
+
+#OSPF
+routing ospf export
+routing ospf area print
+routing ospf network print
+routing ospf interface print 
+routing ospf neighbor print
+routing ospf route print
+
+#MPLS-LDP
+mpls export
+mpls interface print
+mpls ldp interface print
+mpls ldp neighbor print
+mpls forwarding-table print
+
+#IBGP
+routing bgp export
+routing bgp instance print
+routing bgp peer print
+
+#VPLS
+interface vpls export
+interface vpls print
+interface bridge port export
+interface bridge print
+interface bridge host print
+mpls ldp neighbor print brief
+
+#VRF
+ip address print
+interface bridge port export
+interface bridge print
+ip route vrf export
+ip route vrf print
+routing bgp vpnv4-route print
+```
 
 Step Verification via SecureCRT
 
