@@ -74,6 +74,12 @@ Example Verification (Traceroute)
 <img src="Verification/Traceroute Test-3.png">
 </p>
 
+Step Verification via SecureCRT
+
+  1. Click File -> Log Session -> Rename File -> Save (Create Log)
+  2. Script Run -> Select Filename "verification.vbs" -> Run (Running Script)
+  3. Click File -> Log Session (Stop Log)
+
 Script Verification (VBS Script)
 
 ```
