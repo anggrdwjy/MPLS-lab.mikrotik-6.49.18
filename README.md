@@ -14,7 +14,7 @@ Topology Lab MPLS
 
 References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Topology">Topology</a>
 
-## OSPFv2
+## Routing OSPFv2
 
 OSPF (Open Shortest Path First) is a link-state routing protocol that allows routers to build a full map of the network topology to determine the fastest paths. It operates by discovering neighbors via Hello packets, exchanging Link-State Advertisements (LSAs) to synchronize a Link-State Database (LSDB), and running Dijkstra's Shortest Path First (SPF) algorithm.
 
@@ -24,7 +24,7 @@ This MPLS lab uses OSPFv2 routing
 <img src="OSPFv2/Topology OSPF Routing.png">
 </p>
 
-References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/OSPFv2">OSPFv2</a>
+References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/OSPFv2">Routing OSPFv2</a>
 
 Verification OSPF Example
 
