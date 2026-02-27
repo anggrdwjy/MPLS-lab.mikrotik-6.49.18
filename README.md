@@ -12,7 +12,9 @@ Topology Lab MPLS
 
 ### OSPFv2
 
-The last lesson introduced the most fundamental OSPF terms, such as LSA, LSDB, SPF, Areas, Cost, and Neighbors. In this lesson, we continue introducing new concepts and terms while zooming in on some of the topics discussed in the last lesson. This MPLS lab uses OSPFv2 routing
+OSPF (Open Shortest Path First) is a link-state routing protocol that allows routers to build a full map of the network topology to determine the fastest paths. It operates by discovering neighbors via Hello packets, exchanging Link-State Advertisements (LSAs) to synchronize a Link-State Database (LSDB), and running Dijkstra's Shortest Path First (SPF) algorithm.
+
+This MPLS lab uses OSPFv2 routing
 
 <p align="center">
 <img src="OSPFv2/Topology OSPF Routing.png">
@@ -30,6 +32,31 @@ LDP is a protocol that automatically generates and exchanges labels between rout
 
 
 ### L2VPN Virtual Private LAN Services
+
+VPLS is an Ethernet-based point-to-multipoint Layer 2 VPN. It allows you to connect geographically dispersed Ethernet local area networks (LAN) sites to each other across an MPLS backbone. For customers who implement VPLS, all sites appear to be in the same Ethernet LAN even though traffic travels across the service provider's network.
+
+VPLS, in its implementation and configuration, has much in common with a Layer 2 VPN. In VPLS, a packet originating within a service provider customer’s network is sent first to a customer edge (CE) device (for example, a router or Ethernet switch). It is then sent to a provider edge (PE) router within the service provider’s network. The packet traverses the service provider’s network over a MPLS label-switched path (LSP). It arrives at the egress PE router, which then forwards the traffic to the CE device at the destination customer site.
+
+<p align="center">
+<img src="L2VPN-VPLS/Topology VPLS CE1-CE7.png">
+</p>
+
+
 ### IBGP Router Reflector Concept
+
+A BGP Route Reflector (RR) reduces iBGP full-mesh requirements by acting as a central hub that "reflects" routes between client routers within an Autonomous System (AS). It breaks the split-horizon rule (iBGP-to-iBGP), allowing clients to peer only with the RR, simplifying configuration and reducing CPU/network overhead.
+
+Router Reflector (RR1)
+
+<p align="center">
+<img src="IBGP-RouteReflector/Topology Route-Reflector RR1.png">
+</p>
+
+Router Reflector (RR2)
+
+<p align="center">
+<img src="IBGP-RouteReflector/Topology Route-Reflector RR2.png">
+</p>
+
 ### L3VPN Virtual Routing Forwarding
 ### Verification with Script
