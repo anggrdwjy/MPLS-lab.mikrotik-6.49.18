@@ -2,7 +2,7 @@
 
 This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB RAM and 100GB Disk. It uses MikroTik CHRx86 6.49.18 running on PNETLAB.
 
-## Topology Target
+### Topology Target
 
 Topology Lab MPLS
 
@@ -10,7 +10,7 @@ Topology Lab MPLS
 <img src="Topology/Topology-MPLS-MikroTik-v2.png">
 </p>
 
-## OSPFv2
+### OSPFv2
 
 OSPF (Open Shortest Path First) is a link-state routing protocol that allows routers to build a full map of the network topology to determine the fastest paths. It operates by discovering neighbors via Hello packets, exchanging Link-State Advertisements (LSAs) to synchronize a Link-State Database (LSDB), and running Dijkstra's Shortest Path First (SPF) algorithm.
 
@@ -31,7 +31,7 @@ routing ospf neighbor print
 routing ospf route print
 ```
 
-## MPLS LDP
+### MPLS LDP
 
 Multi-Protocol Label Switching (MPLS) is an advanced packet-forwarding technique used in modern networks. Instead of making routers look into complex Layer 3 routing tables for every IP packet, MPLS uses labels for forwarding decisions. These labels create pre-defined, efficient paths across the network, which enhances speed, scalability and traffic management.
 
@@ -51,7 +51,7 @@ mpls ldp neighbor print
 mpls forwarding-table print
 ```
 
-## L2VPN Virtual Private LAN Services
+### L2VPN Virtual Private LAN Services
 
 VPLS is an Ethernet-based point-to-multipoint Layer 2 VPN. It allows you to connect geographically dispersed Ethernet local area networks (LAN) sites to each other across an MPLS backbone. For customers who implement VPLS, all sites appear to be in the same Ethernet LAN even though traffic travels across the service provider's network.
 
@@ -72,7 +72,7 @@ interface bridge host print
 mpls ldp neighbor print brief
 ```
 
-## IBGP Router Reflector Concept
+### IBGP Router Reflector Concept
 
 A BGP Route Reflector (RR) reduces iBGP full-mesh requirements by acting as a central hub that "reflects" routes between client routers within an Autonomous System (AS). It breaks the split-horizon rule (iBGP-to-iBGP), allowing clients to peer only with the RR, simplifying configuration and reducing CPU/network overhead.
 
@@ -96,7 +96,7 @@ routing bgp instance print
 routing bgp peer print
 ```
 
-## L3VPN Virtual Routing Forwarding
+### L3VPN Virtual Routing Forwarding
 
 L3VPN in BGP (specifically BGP/MPLS IP VPN) works by using Multiprotocol BGP (MP-BGP) to distribute customer routes between Provider Edge (PE) routers, while using MPLS to tunnel traffic across the backbone. PE routers use VRFs to maintain separate routing tables per customer, assign Route Distinguishers (RDs) to make routes unique, and use Route Targets (RTs) to control route import/export
 
@@ -115,7 +115,7 @@ ip route vrf print brief
 routing bgp vpnv4-route print
 ```
 
-## Verification with Script
+### Verification with Script
 
 Example Verification (Traceroute)
 
@@ -189,7 +189,7 @@ End Sub
 
 ```
 
-## Support
+### Support
 
 * [:octocat: Follow me on GitHub](https://github.com/anggrdwjy)
 * [🔔 Subscribe me on Youtube](https://www.youtube.com/@anggarda.wijaya)
