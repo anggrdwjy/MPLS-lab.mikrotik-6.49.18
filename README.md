@@ -3,7 +3,7 @@
 This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB RAM and 100GB Disk. It uses MikroTik CHRx86 6.49.18 running on PNETLAB.
 
 <p align="center">
-<img src="img/banners.png">
+<img src="img/bannerd.png">
 </p>
 
 References Backup Lab : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/blob/main/Export_Lab_MPLS_MikroTik.zip">Backup Lab MPLS MikroTik</a>
@@ -16,7 +16,7 @@ Topology Lab MPLS
 <img src="Topology/Topology-MPLS-MikroTik-v2.png">
 </p>
 
-References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Topology">Topology</a>
+References Topology : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Topology">Topology</a>
 
 ## Routing OSPFv2
 
@@ -28,7 +28,7 @@ This MPLS lab uses OSPFv2 routing
 <img src="OSPFv2/Topology OSPF Routing.png">
 </p>
 
-References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/OSPFv2">Routing OSPFv2</a>
+References Backup Configuration OSPF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/OSPFv2">Routing OSPFv2</a>
 
 
 ## MPLS LDP
@@ -41,7 +41,7 @@ LDP is a protocol that automatically generates and exchanges labels between rout
 <img src="MPLS-LDP/Topology MPLS LDP Signaling.png">
 </p>
 
-References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/MPLS-LDP">MPLS LDP</a>
+References Backup Configuration MPLS LDP : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/MPLS-LDP">MPLS LDP</a>
 
 
 ## MPLS L2VPN Virtual Private LAN Services
@@ -54,7 +54,7 @@ VPLS, in its implementation and configuration, has much in common with a Layer 2
 <img src="L2VPN-VPLS/Topology VPLS CE1-CE7.png">
 </p>
 
-References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L2VPN-VPLS">MPLS L2VPN VPLS</a>
+References Backup Configuration MPLS L2VPN VPLS : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L2VPN-VPLS">MPLS L2VPN VPLS</a>
 
 
 ## IBGP Router Reflector Concept
@@ -73,7 +73,7 @@ Router Reflector (RR2)
 <img src="IBGP-RouteReflector/Topology Route-Reflector RR2.png">
 </p>
 
-References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/IBGP-RouteReflector">IBGP ROUTE REFLECTOR</a>
+References Backup Configuration BGP Route Reflector : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/IBGP-RouteReflector">IBGP ROUTE REFLECTOR</a>
 
 
 ## MPLS L3VPN Virtual Routing Forwarding
@@ -84,7 +84,7 @@ L3VPN in BGP (specifically BGP/MPLS IP VPN) works by using Multiprotocol BGP (MP
 <img src="L3VPN-VRF/Topology VRF CE6-CE12.png">
 </p>
 
-References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L3VPN-VRF">MPLS L3VPN VRF</a>
+References Backup Configuration MPLS L3VPN VRF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L3VPN-VRF">MPLS L3VPN VRF</a>
 
 
 ## Verification with Script
@@ -95,7 +95,7 @@ Example Verification (Traceroute)
 <img src="Verification/Traceroute Test-3.png">
 </p>
 
-References Document : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Verification">Verification with Script</a>
+References Files Verification : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Verification">Verification with Script</a>
 
 Step Verification via SecureCRT
 
