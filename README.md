@@ -6,29 +6,29 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 <img src="img/bannerd.png">
 </p>
 
-References Backup Lab : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/blob/main/Export_Lab_MPLS_MikroTik.zip">Backup Lab MPLS MikroTik</a>
+- References Backup Lab : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/blob/main/Export_Lab_MPLS_MikroTik.zip">Backup Lab MPLS MikroTik</a>
 
 ## Topology Target
 
-Topology Lab MPLS
+#### Topology Lab MPLS
 
 <p align="center">
 <img src="Topology/Topology-MPLS-MikroTik-v2.png">
 </p>
 
-References Topology : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Topology">Topology</a>
+- References Topology : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Topology">Topology</a>
 
 ## Routing OSPFv2
 
 OSPF (Open Shortest Path First) is a link-state routing protocol that allows routers to build a full map of the network topology to determine the fastest paths. It operates by discovering neighbors via Hello packets, exchanging Link-State Advertisements (LSAs) to synchronize a Link-State Database (LSDB), and running Dijkstra's Shortest Path First (SPF) algorithm.
 
-This MPLS lab uses OSPFv2 routing
+#### This MPLS lab uses OSPFv2 routing
 
 <p align="center">
 <img src="OSPFv2/Topology OSPF Routing.png">
 </p>
 
-References Backup Configuration OSPF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/OSPFv2">Routing OSPFv2</a>
+- References Backup Configuration OSPF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/OSPFv2">Routing OSPFv2</a>
 
 
 ## MPLS LDP
@@ -41,7 +41,7 @@ LDP is a protocol that automatically generates and exchanges labels between rout
 <img src="MPLS-LDP/Topology MPLS LDP Signaling.png">
 </p>
 
-References Backup Configuration MPLS LDP : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/MPLS-LDP">MPLS LDP</a>
+- References Backup Configuration MPLS LDP : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/MPLS-LDP">MPLS LDP</a>
 
 
 ## MPLS L2VPN Virtual Private LAN Services
@@ -54,26 +54,26 @@ VPLS, in its implementation and configuration, has much in common with a Layer 2
 <img src="L2VPN-VPLS/Topology VPLS CE1-CE7.png">
 </p>
 
-References Backup Configuration MPLS L2VPN VPLS : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L2VPN-VPLS">MPLS L2VPN VPLS</a>
+- References Backup Configuration MPLS L2VPN VPLS : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L2VPN-VPLS">MPLS L2VPN VPLS</a>
 
 
 ## IBGP Router Reflector Concept
 
 A BGP Route Reflector (RR) reduces iBGP full-mesh requirements by acting as a central hub that "reflects" routes between client routers within an Autonomous System (AS). It breaks the split-horizon rule (iBGP-to-iBGP), allowing clients to peer only with the RR, simplifying configuration and reducing CPU/network overhead.
 
-Router Reflector (RR1)
+#### Router Reflector (RR1)
 
 <p align="center">
 <img src="IBGP-RouteReflector/Topology Route-Reflector RR1.png">
 </p>
 
-Router Reflector (RR2)
+#### Router Reflector (RR2)
 
 <p align="center">
 <img src="IBGP-RouteReflector/Topology Route-Reflector RR2.png">
 </p>
 
-References Backup Configuration BGP Route Reflector : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/IBGP-RouteReflector">IBGP ROUTE REFLECTOR</a>
+- References Backup Configuration BGP Route Reflector : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/IBGP-RouteReflector">IBGP ROUTE REFLECTOR</a>
 
 
 ## MPLS L3VPN Virtual Routing Forwarding
@@ -84,26 +84,26 @@ L3VPN in BGP (specifically BGP/MPLS IP VPN) works by using Multiprotocol BGP (MP
 <img src="L3VPN-VRF/Topology VRF CE6-CE12.png">
 </p>
 
-References Backup Configuration MPLS L3VPN VRF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L3VPN-VRF">MPLS L3VPN VRF</a>
+- References Backup Configuration MPLS L3VPN VRF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L3VPN-VRF">MPLS L3VPN VRF</a>
 
 
 ## Verification with Script
 
-Example Verification (Traceroute)
+#### Example Verification (Traceroute)
 
 <p align="center">
 <img src="Verification/Traceroute Test-3.png">
 </p>
 
-References Files Verification : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Verification">Verification with Script</a>
+- References Files Verification : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Verification">Verification with Script</a>
 
-Step Verification via SecureCRT
+#### Step Verification via SecureCRT
 
   1. Click File -> Log Session -> Rename File -> Save (Create Log)
   2. Script Run -> Select Filename "verification.vbs" -> Run (Running Script)
   3. Click File -> Log Session (Stop Log)
 
-Script Verification (VBS Script)
+#### Script Verification (VBS Script)
 
 ```
 # $language = "VBScript"
@@ -168,7 +168,7 @@ End Sub
 * [🔔 Subscribe me on Youtube](https://www.youtube.com/@anggarda.wijaya)
 
 
-### Bugs
+#### Bugs
 
 Please open an issue on GitHub with as much information as possible if you found a bug.
 * Your Proxmox and PNETLAB Version
