@@ -293,17 +293,6 @@ L3VPN in BGP (specifically BGP/MPLS IP VPN) works by using Multiprotocol BGP (MP
 
 * References Backup Configuration MPLS L3VPN VRF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L3VPN-VRF">MPLS L3VPN VRF</a>
 
-
-## Verification with Script
-
-#### Example Verification (Traceroute)
-
-<p align="center">
-<img src="Verification/Traceroute Test-3.png">
-</p>
-
-* References Files Verification : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Verification">Verification with Script</a>
-
 #### MPLS L3VPN VRF Example
 * CE12
 ```
@@ -353,6 +342,16 @@ Flags: L - label-present
  1 L 65000:2025                    10.100.0.0/30      192.168.10.13      ether2               16         16
  2 L 65000:2025                    10.200.0.0/30                         l3vpn-2025           16
 ```
+
+## Verification with Script
+
+#### Example Verification (Traceroute)
+
+<p align="center">
+<img src="Verification/Traceroute Test-3.png">
+</p>
+
+* References Files Verification : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Verification">Verification with Script</a>
 
 #### Step Verification via SecureCRT
 
