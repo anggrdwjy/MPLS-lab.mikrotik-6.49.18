@@ -6,7 +6,7 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 <img src="img/bannerd.png">
 </p>
 
-- References Backup Lab : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/blob/main/Export_Lab_MPLS_MikroTik.zip">Backup Lab MPLS MikroTik</a>
+* References Backup Lab : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/blob/main/Export_Lab_MPLS_MikroTik.zip">Backup Lab MPLS MikroTik</a>
 
 ## Topology Target
 
@@ -16,7 +16,7 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 <img src="Topology/Topology-MPLS-MikroTik-v2.png">
 </p>
 
-- References Topology : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Topology">Topology</a>
+* References Topology : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Topology">Topology</a>
 
 ## Routing OSPFv2
 
@@ -28,8 +28,37 @@ OSPF (Open Shortest Path First) is a link-state routing protocol that allows rou
 <img src="OSPFv2/Topology OSPF Routing.png">
 </p>
 
-- References Backup Configuration OSPF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/OSPFv2">Routing OSPFv2</a>
+* References Backup Configuration OSPF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/OSPFv2">Routing OSPFv2</a>
 
+#### Routing OSPF Example
+```
+## Loopback
+/interface bridge
+add name=lo0
+/ip address
+add address=192.168.150.1 comment=PE1 interface=lo0 network=192.168.150.1
+
+## Routing OSPF Instance
+/routing ospf area
+add area-id=0.0.0.60 name=area60
+/routing ospf instance
+set [ find default=yes ] name=ospf100 router-id=192.168.150.1
+
+## Routing OSPF Interface
+/routing ospf interface
+add cost=65000 interface=lo0 network-type=point-to-point passive=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=10s\
+hello-interval=5s interface=ether1 network-type=point-to-point use-bfd=yes
+add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=10s\
+hello-interval=5s interface=ether2 network-type=point-to-point use-bfd=yes
+
+## Routing OSPF Network
+/routing ospf network
+add area=backbone network=192.168.150.1/32
+add area=backbone network=172.16.20.48/30
+add area=backbone network=172.16.20.52/30
+
+```
 
 ## MPLS LDP
 
