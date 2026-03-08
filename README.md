@@ -291,7 +291,7 @@ L3VPN in BGP (specifically BGP/MPLS IP VPN) works by using Multiprotocol BGP (MP
 <img src="L3VPN-VRF/Topology VRF CE6-CE12.png">
 </p>
 
-- References Backup Configuration MPLS L3VPN VRF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L3VPN-VRF">MPLS L3VPN VRF</a>
+* References Backup Configuration MPLS L3VPN VRF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L3VPN-VRF">MPLS L3VPN VRF</a>
 
 
 ## Verification with Script
@@ -302,7 +302,57 @@ L3VPN in BGP (specifically BGP/MPLS IP VPN) works by using Multiprotocol BGP (MP
 <img src="Verification/Traceroute Test-3.png">
 </p>
 
-- References Files Verification : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Verification">Verification with Script</a>
+* References Files Verification : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Verification">Verification with Script</a>
+
+#### MPLS L3VPN VRF Example
+* CE12
+```
+/interface bridge port
+add bpdu-guard=yes bridge=l3vpn-2025 interface=ether3
+/ip route vrf
+add export-route-targets=65000:2025 import-route-targets=65000:2025 \
+    interfaces=l3vpn-2025 route-distinguisher=65000:2025 routing-mark=\
+    l3vpn-2025
+```
+
+* CE6
+```
+/interface bridge port
+add bpdu-guard=yes bridge=l3vpn-2025 interface=ether3
+/ip route vrf
+add export-route-targets=65000:2025 import-route-targets=65000:2025 interfaces=l3vpn-2025 \
+    route-distinguisher=65000:2025 routing-mark=l3vpn-2025
+
+```
+
+#### Verification MPLS L3VPN Example
+* CE12
+```
+[admin@CE12] > ip route vrf print brief
+Flags: X - disabled, I - inactive 
+ #   ROUTING-... IN ROUTE-DISTINGUISHER          IMPORT-ROUTE-TARGETS        
+ 0   l3vpn-2025  l3 65000:2025                   65000:2025                  
+[admin@CE12] > routing bgp vpnv4-route print
+Flags: L - label-present 
+ #   ROUTE-DISTINGUISHER            DST-ADDRESS        GATEWAY             IN..
+ 0 L 65000:2025                     10.200.0.0/30      192.168.10.7        et..
+ 1 L 65000:2025                     10.200.0.0/30      192.168.10.7        et..
+ 2 L 65000:2025                     10.100.0.0/30                          l3..
+```
+
+* CE6
+```
+[admin@CE6] > ip route vrf print brief
+Flags: X - disabled, I - inactive 
+ #   ROUTING-MARK IN ROUTE-DISTINGUISHER          IMPORT-ROUTE-TARGETS         EXPORT-ROUTE-TARGETS        
+ 0   l3vpn-2025   l3 65000:2025                   65000:2025                   65000:2025                  
+[admin@CE6] > routing bgp vpnv4-route print
+Flags: L - label-present 
+ #   ROUTE-DISTINGUISHER           DST-ADDRESS        GATEWAY            INTERFACE      IN-LABEL  OUT-LABEL
+ 0 L 65000:2025                    10.100.0.0/30      192.168.10.13      ether2               16         16
+ 1 L 65000:2025                    10.100.0.0/30      192.168.10.13      ether2               16         16
+ 2 L 65000:2025                    10.200.0.0/30                         l3vpn-2025           16
+```
 
 #### Step Verification via SecureCRT
 
