@@ -61,7 +61,7 @@ add area=backbone network=172.16.20.48/30
 add area=backbone network=172.16.20.52/30
 ```
 
-#### Verification OSPF
+#### Verification OSPF Example
 ```
 routing ospf export
 routing ospf area print
