@@ -18,6 +18,21 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 
 * References Topology : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Topology">Topology</a>
 
+#### IP Point to Point
+<p align="left">
+<img src="Topology/IP Point-to-Point.jpeg">
+</p>
+
+#### IP Loopback PE
+<p align="left">
+<img src="Topology/Loopback PE.jpeg">
+</p>
+
+#### IP Loopback CE
+<p align="left">
+<img src="Topology/Loopback CE.jpeg">
+</p>
+
 ## Routing OSPFv2
 
 OSPF (Open Shortest Path First) is a link-state routing protocol that allows routers to build a full map of the network topology to determine the fastest paths. It operates by discovering neighbors via Hello packets, exchanging Link-State Advertisements (LSAs) to synchronize a Link-State Database (LSDB), and running Dijkstra's Shortest Path First (SPF) algorithm.
