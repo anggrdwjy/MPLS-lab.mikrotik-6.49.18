@@ -33,15 +33,13 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 <img src="Topology/IP Point-to-Point.jpeg">
 </p>
 
-#### IP Loopback PE
-<p align="left">
-<img src="Topology/Loopback PE.jpeg">
-</p>
-
-#### IP Loopback CE
-<p align="left">
-<img src="Topology/Loopback CE.jpeg">
-</p>
+#### IP Loopback CE and PE
+<table>
+	<tr>
+		<img src="Topology/Loopback CE.jpeg">
+		<img src="Topology/Loopback PE.jpeg">
+	</tr>
+</table>
 
 ## Routing OSPFv2
 
