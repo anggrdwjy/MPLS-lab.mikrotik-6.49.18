@@ -36,8 +36,8 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 #### IP Loopback CE and PE
 <table>
 	<tr>
-		<img src="Topology/Loopback CE.jpeg">
-		<img src="Topology/Loopback PE.jpeg">
+		<td><img src="Topology/Loopback CE.jpeg"></td>
+		<td><img src="Topology/Loopback PE.jpeg"></td>
 	</tr>
 </table>
 
