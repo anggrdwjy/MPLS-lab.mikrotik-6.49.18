@@ -37,6 +37,8 @@ OSPF (Open Shortest Path First) is a link-state routing protocol that allows rou
 add name=lo0
 /ip address
 add address=192.168.150.1 comment=PE1 interface=lo0 network=192.168.150.1
+add address=172.16.20.53/30 comment=PE5 interface=ether1 network=172.16.20.52
+add address=172.16.20.49/30 comment=PE5 interface=ether2 network=172.16.20.48
 
 ## Routing OSPF Instance
 /routing ospf area
@@ -57,7 +59,16 @@ hello-interval=5s interface=ether2 network-type=point-to-point use-bfd=yes
 add area=backbone network=192.168.150.1/32
 add area=backbone network=172.16.20.48/30
 add area=backbone network=172.16.20.52/30
+```
 
+#### Verification OSPF
+```
+routing ospf export
+routing ospf area print
+routing ospf network print
+routing ospf interface print 
+routing ospf neighbor print
+routing ospf route print
 ```
 
 ## MPLS LDP
