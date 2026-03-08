@@ -8,6 +8,16 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 
 * References Backup Lab : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/blob/main/Export_Lab_MPLS_MikroTik.zip">Backup Lab MPLS MikroTik</a>
 
+### Information
+* Lab Running on PNETLAB
+* MikroTik RouterOS 6.49.18
+* Implementation Routing OSPFv2
+* Implementation MPLS LDP
+* Implementation Interior BGP (Router Reflecotr Concept)
+* Implementation L2VPN VPLS (Virtual Private LAN Services)
+* Implementation L3VPN VRF (Vritual Routing Forwarding)
+* This Lab Only Testing, No Recommend For Production
+
 ## Topology Target
 
 #### Topology Lab MPLS
