@@ -229,8 +229,59 @@ A BGP Route Reflector (RR) reduces iBGP full-mesh requirements by acting as a ce
 <img src="IBGP-RouteReflector/Topology Route-Reflector RR2.png">
 </p>
 
-- References Backup Configuration BGP Route Reflector : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/IBGP-RouteReflector">IBGP ROUTE REFLECTOR</a>
+* References Backup Configuration BGP Route Reflector : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/IBGP-RouteReflector">IBGP ROUTE REFLECTOR</a>
 
+#### Interior BGP Router Reflector Example
+* Router RR1
+```
+/routing bgp instance
+set default as=65000 cluster-id=192.168.254.1 router-id=192.168.254.1
+/routing bgp peer
+add address-families=vpnv4 name=PE1 remote-address=192.168.150.1 remote-as=65000 \
+route-reflect=yes tcp-md5-key=multimedia123 update-source=lo0
+```
+
+* Router PE1
+```
+/routing bgp instance
+set default as=65000 cluster-id=192.168.150.1 router-id=192.168.150.1
+/routing bgp peer
+add address-families=vpnv4 name=RR1 remote-address=192.168.254.1 remote-as=65000 \
+tcp-md5-key=multimedia123 update-source=lo0
+```
+
+#### Interior BGP Verification Example
+```
+routing bgp export
+routing bgp instance print
+routing bgp peer print
+```
+
+* Router RR1
+```
+[admin@RR1] > routing bgp instance print
+Flags: * - default, X - disabled 
+ 0 *  name="default" as=65000 router-id=192.168.254.1 redistribute-connected=no redistribute-static=no redistribute-rip=no redistribute-ospf=no 
+      redistribute-other-bgp=no out-filter="" cluster-id=192.168.254.1 client-to-client-reflection=yes ignore-as-path-len=no routing-table="" 
+[admin@RR1] > routing bgp peer print
+Flags: X - disabled, E - established 
+ #   INSTANCE                                           REMOTE-ADDRESS                                                                     REMOTE-AS  
+ 0 E default                                            192.168.150.1                                                                      65000         
+```
+
+* Router PE1
+```
+[admin@PE1] > routing bgp instance print
+Flags: * - default, X - disabled 
+ 0 *  name="default" as=65000 router-id=192.168.150.1 redistribute-connected=no 
+      redistribute-static=no redistribute-rip=no redistribute-ospf=no 
+      redistribute-other-bgp=no out-filter="" cluster-id=192.168.150.1 
+      client-to-client-reflection=yes ignore-as-path-len=no routing-table="" 
+[admin@PE1] > routing bgp peer print
+Flags: X - disabled, E - established 
+ #   INSTANCE              REMOTE-ADDRESS                                       REMOTE-AS  
+ 0 E default               192.168.254.1                                        65000         
+```
 
 ## MPLS L3VPN Virtual Routing Forwarding
 
