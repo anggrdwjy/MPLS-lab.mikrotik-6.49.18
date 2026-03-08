@@ -153,8 +153,65 @@ VPLS, in its implementation and configuration, has much in common with a Layer 2
 <img src="L2VPN-VPLS/Topology VPLS CE1-CE7.png">
 </p>
 
-- References Backup Configuration MPLS L2VPN VPLS : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L2VPN-VPLS">MPLS L2VPN VPLS</a>
+* References Backup Configuration MPLS L2VPN VPLS : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L2VPN-VPLS">MPLS L2VPN VPLS</a>
 
+#### MPLS L2VPN VPLS Example
+* Router CE1
+```
+/interface vpls
+add disabled=no l2mtu=1500 mac-address=02:4C:08:CB:1F:B3 name=vpls-l2c-2024 pw-type=tagged-ethernet \
+remote-peer=192.168.10.8 vpls-id=2024:11
+
+/interface bridge
+add mtu=1998 name=l2c-2024
+add name=lo0
+/interface bridge port
+add bpdu-guard=yes bridge=l2c-2024 interface=ether3
+add bridge=l2c-2024 horizon=1 interface=vpls-l2c-2024
+```
+
+* Router CE7
+```
+/interface vpls
+add disabled=no l2mtu=1500 mac-address=02:BF:8C:E7:0C:1B name=vpls-l2c-2024 pw-type=tagged-ethernet \
+remote-peer=192.168.10.2 vpls-id=2024:11
+
+/interface bridge
+add mtu=1998 name=l2c-2024
+add name=lo0
+/interface bridge port
+add bpdu-guard=yes bridge=l2c-2024 interface=ether3
+add bridge=l2c-2024 horizon=1 interface=vpls-l2c-2024
+```
+
+#### Verification VPLS Example
+```
+interface vpls export
+interface vpls print
+interface bridge port export
+interface bridge print
+interface bridge host print
+mpls ldp neighbor print brief
+```
+
+```
+[admin@CE7] > mpls ldp neighbor print brief
+Flags: X - disabled, D - dynamic, O - operational, T - sending-targeted-hello, V - vpls 
+ #      TRANSPORT       LOCAL-TRANSPORT PEER                       SEND-TARGETED ADDRESSES      
+ 0  OT  192.168.10.9    192.168.10.8    192.168.10.9:0             yes           172.16.20.121  
+                                                                                 172.16.20.126  
+                                                                                 192.168.10.9   
+ 1  OT  192.168.150.4   192.168.10.8    192.168.150.4:0            yes           172.16.20.18   
+                                                                                 172.16.20.22   
+                                                                                 172.16.20.73   
+                                                                                 172.16.20.77   
+                                                                                 172.16.20.117  
+                                                                                 192.168.150.4  
+ 2 DOTV 192.168.10.2    192.168.10.8    192.168.10.2:0             yes           172.16.20.82   
+                                                                                 172.16.20.85   
+                                                                                 192.168.10.2   
+[admin@CE7] > 
+```
 
 ## IBGP Router Reflector Concept
 
