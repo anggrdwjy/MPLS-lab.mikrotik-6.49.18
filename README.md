@@ -32,9 +32,14 @@ OSPF (Open Shortest Path First) is a link-state routing protocol that allows rou
 
 #### Routing OSPF Example
 ```
-## Loopback
+## Interface and Loopback
 /interface bridge
 add name=lo0
+/interface ethernet
+set [ find default-name=ether1 ] comment=PE5 mtu=9000
+set [ find default-name=ether2 ] comment=PE5 mtu=9000
+
+## IP Address Mapping
 /ip address
 add address=192.168.150.1 comment=PE1 interface=lo0 network=192.168.150.1
 add address=172.16.20.53/30 comment=PE5 interface=ether1 network=172.16.20.52
@@ -81,8 +86,39 @@ LDP is a protocol that automatically generates and exchanges labels between rout
 <img src="MPLS-LDP/Topology MPLS LDP Signaling.png">
 </p>
 
-- References Backup Configuration MPLS LDP : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/MPLS-LDP">MPLS LDP</a>
+* References Backup Configuration MPLS LDP : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/MPLS-LDP">MPLS LDP</a>
 
+#### MPLS LDP Example
+```
+## MPLS Interface
+/mpls interface
+set [ find default=yes ] mpls-mtu=9000
+
+## MPLS LDP and Interface
+/mpls ldp
+set enabled=yes lsr-id=192.168.150.1 transport-address=192.168.150.1
+/mpls ldp interface
+add interface=ether1
+add interface=ether2
+add interface=ether3
+add interface=ether4
+add interface=ether5
+
+## MPLS LDP Neighbor
+/mpls ldp neighbor
+add transport=192.168.10.13
+add transport=192.168.150.8
+add transport=192.168.150.2
+```
+
+#### Verification MPLS LDP Example
+```
+mpls export
+mpls interface print
+mpls ldp interface print
+mpls ldp neighbor print
+mpls forwarding-table print
+```
 
 ## MPLS L2VPN Virtual Private LAN Services
 
