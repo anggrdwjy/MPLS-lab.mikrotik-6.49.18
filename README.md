@@ -1,4 +1,4 @@
-## Overview Lab
+## A. Overview Lab
 
 This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB RAM and 100GB Disk. It uses MikroTik CHRx86 6.49.18 running on PNETLAB.
 
@@ -8,7 +8,17 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 
 * References Backup Lab : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/blob/main/Export_Lab_MPLS_MikroTik.zip">Backup Lab MPLS MikroTik</a>
 
-### Information
+#### Information
+* [A. Overview Lab](#a-overview-lab)
+* [B. Topology](#b-topology)
+* [C. Routing OSPFv](#c-routing-ospfv2)
+* [D. MPLS LDP](#d-mpls-ldp)
+* [E. VPLS](#e-vpls)
+* [F. IBGP Router Reflector](#f-ibgp-router-reflector)
+* [G. MPLS L3VPN](#g-mpls-l3vpn)
+* [H. Verification](#h-verification)
+
+#### Outline
 * Lab Running on PNETLAB
 * MikroTik RouterOS 6.49.18
 * Implementation Routing OSPFv2
@@ -18,9 +28,8 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 * Implementation L3VPN VRF (Vritual Routing Forwarding)
 * This Lab Only Testing, No Recommend For Production
 
-## Topology Target
-
-#### Topology Lab MPLS
+## B. Topology
+#### 1. Topology Lab MPLS
 
 <p align="center">
 <img src="Topology/Topology-MPLS-MikroTik-v2.png">
@@ -28,12 +37,12 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 
 * References Topology : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Topology">Topology</a>
 
-#### IP Point to Point
+#### 2. IP Point to Point
 <p align="left">
 <img src="Topology/IP Point-to-Point.jpeg">
 </p>
 
-#### IP Loopback CE and PE
+#### 3. IP Loopback CE and PE
 <p align="left">
 <img src="Topology/Loopback CE.jpeg">
 </p>
@@ -42,11 +51,11 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 <img src="Topology/Loopback PE.jpeg">
 </p>
 
-## Routing OSPFv2
+## C. Routing OSPFv2
 
 OSPF (Open Shortest Path First) is a link-state routing protocol that allows routers to build a full map of the network topology to determine the fastest paths. It operates by discovering neighbors via Hello packets, exchanging Link-State Advertisements (LSAs) to synchronize a Link-State Database (LSDB), and running Dijkstra's Shortest Path First (SPF) algorithm.
 
-#### This MPLS lab uses OSPFv2 routing
+#### 1. This MPLS lab uses OSPFv2 routing
 
 <p align="center">
 <img src="OSPFv2/Topology OSPF Routing.png">
@@ -54,43 +63,51 @@ OSPF (Open Shortest Path First) is a link-state routing protocol that allows rou
 
 * References Backup Configuration OSPF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/OSPFv2">Routing OSPFv2</a>
 
-#### Routing OSPF Example
+#### 2. Routing OSPF Example
+* Interface and Loopback
 ```
-## Interface and Loopback
 /interface bridge
 add name=lo0
 /interface ethernet
 set [ find default-name=ether1 ] comment=PE5 mtu=9000
 set [ find default-name=ether2 ] comment=PE5 mtu=9000
+```
 
-## IP Address Mapping
+* IP Address Mapping
+```
 /ip address
 add address=192.168.150.1 comment=PE1 interface=lo0 network=192.168.150.1
 add address=172.16.20.53/30 comment=PE5 interface=ether1 network=172.16.20.52
 add address=172.16.20.49/30 comment=PE5 interface=ether2 network=172.16.20.48
+```
 
-## Routing OSPF Instance
+* Routing OSPF Instance
+```
 /routing ospf area
 add area-id=0.0.0.60 name=area60
 /routing ospf instance
 set [ find default=yes ] name=ospf100 router-id=192.168.150.1
+```
 
-## Routing OSPF Interface
+* Routing OSPF Interface
+```
 /routing ospf interface
 add cost=65000 interface=lo0 network-type=point-to-point passive=yes
 add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=10s\
 hello-interval=5s interface=ether1 network-type=point-to-point use-bfd=yes
 add authentication=md5 authentication-key=multimedia123 cost=1 dead-interval=10s\
 hello-interval=5s interface=ether2 network-type=point-to-point use-bfd=yes
+```
 
-## Routing OSPF Network
+* Routing OSPF Network
+```
 /routing ospf network
 add area=backbone network=192.168.150.1/32
 add area=backbone network=172.16.20.48/30
 add area=backbone network=172.16.20.52/30
 ```
 
-#### Verification OSPF Example
+#### 3. Verification OSPF Example
 ```
 routing ospf export
 routing ospf area print
@@ -100,7 +117,7 @@ routing ospf neighbor print
 routing ospf route print
 ```
 
-## MPLS LDP
+## D. MPLS LDP
 
 Multi-Protocol Label Switching (MPLS) is an advanced packet-forwarding technique used in modern networks. Instead of making routers look into complex Layer 3 routing tables for every IP packet, MPLS uses labels for forwarding decisions. These labels create pre-defined, efficient paths across the network, which enhances speed, scalability and traffic management.
 
@@ -112,13 +129,16 @@ LDP is a protocol that automatically generates and exchanges labels between rout
 
 * References Backup Configuration MPLS LDP : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/MPLS-LDP">MPLS LDP</a>
 
-#### MPLS LDP Example
+#### 1. MPLS LDP Example
+
+* MPLS Interface
 ```
-## MPLS Interface
 /mpls interface
 set [ find default=yes ] mpls-mtu=9000
+```
 
-## MPLS LDP and Interface
+* MPLS LDP and Interface
+```
 /mpls ldp
 set enabled=yes lsr-id=192.168.150.1 transport-address=192.168.150.1
 /mpls ldp interface
@@ -127,15 +147,17 @@ add interface=ether2
 add interface=ether3
 add interface=ether4
 add interface=ether5
+```
 
-## MPLS LDP Neighbor
+* MPLS LDP Neighbor
+```
 /mpls ldp neighbor
 add transport=192.168.10.13
 add transport=192.168.150.8
 add transport=192.168.150.2
 ```
 
-#### Verification MPLS LDP Example
+#### 2. Verification MPLS LDP Example
 ```
 mpls export
 mpls interface print
@@ -144,7 +166,7 @@ mpls ldp neighbor print
 mpls forwarding-table print
 ```
 
-## MPLS L2VPN Virtual Private LAN Services
+## E. VPLS
 
 VPLS is an Ethernet-based point-to-multipoint Layer 2 VPN. It allows you to connect geographically dispersed Ethernet local area networks (LAN) sites to each other across an MPLS backbone. For customers who implement VPLS, all sites appear to be in the same Ethernet LAN even though traffic travels across the service provider's network.
 
@@ -156,7 +178,8 @@ VPLS, in its implementation and configuration, has much in common with a Layer 2
 
 * References Backup Configuration MPLS L2VPN VPLS : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L2VPN-VPLS">MPLS L2VPN VPLS</a>
 
-#### MPLS L2VPN VPLS Example
+#### 1. VPLS Example
+
 * Router CE1
 ```
 /interface vpls
@@ -185,7 +208,7 @@ add bpdu-guard=yes bridge=l2c-2024 interface=ether3
 add bridge=l2c-2024 horizon=1 interface=vpls-l2c-2024
 ```
 
-#### Verification VPLS Example
+#### 2. Verification VPLS Example
 ```
 interface vpls export
 interface vpls print
@@ -214,17 +237,17 @@ Flags: X - disabled, D - dynamic, O - operational, T - sending-targeted-hello, V
 [admin@CE7] > 
 ```
 
-## IBGP Router Reflector Concept
+## F. IBGP Router Reflector
 
 A BGP Route Reflector (RR) reduces iBGP full-mesh requirements by acting as a central hub that "reflects" routes between client routers within an Autonomous System (AS). It breaks the split-horizon rule (iBGP-to-iBGP), allowing clients to peer only with the RR, simplifying configuration and reducing CPU/network overhead.
 
-#### Router Reflector (RR1)
+#### 1. Router Reflector (RR1)
 
 <p align="center">
 <img src="IBGP-RouteReflector/Topology Route-Reflector RR1.png">
 </p>
 
-#### Router Reflector (RR2)
+#### 2. Router Reflector (RR2)
 
 <p align="center">
 <img src="IBGP-RouteReflector/Topology Route-Reflector RR2.png">
@@ -232,7 +255,7 @@ A BGP Route Reflector (RR) reduces iBGP full-mesh requirements by acting as a ce
 
 * References Backup Configuration BGP Route Reflector : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/IBGP-RouteReflector">IBGP ROUTE REFLECTOR</a>
 
-#### Interior BGP Router Reflector Example
+#### 3. Interior BGP Router Reflector Example
 * Router RR1
 ```
 /routing bgp instance
@@ -251,7 +274,7 @@ add address-families=vpnv4 name=RR1 remote-address=192.168.254.1 remote-as=65000
 tcp-md5-key=multimedia123 update-source=lo0
 ```
 
-#### Interior BGP Verification Example
+#### 4. Interior BGP Verification Example
 ```
 routing bgp export
 routing bgp instance print
@@ -284,7 +307,7 @@ Flags: X - disabled, E - established
  0 E default               192.168.254.1                                        65000         
 ```
 
-## MPLS L3VPN Virtual Routing Forwarding
+## G. MPLS L3VPN
 
 L3VPN in BGP (specifically BGP/MPLS IP VPN) works by using Multiprotocol BGP (MP-BGP) to distribute customer routes between Provider Edge (PE) routers, while using MPLS to tunnel traffic across the backbone. PE routers use VRFs to maintain separate routing tables per customer, assign Route Distinguishers (RDs) to make routes unique, and use Route Targets (RTs) to control route import/export
 
@@ -294,7 +317,7 @@ L3VPN in BGP (specifically BGP/MPLS IP VPN) works by using Multiprotocol BGP (MP
 
 * References Backup Configuration MPLS L3VPN VRF : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/L3VPN-VRF">MPLS L3VPN VRF</a>
 
-#### MPLS L3VPN VRF Example
+#### 1. MPLS L3VPN VRF Example
 * CE12
 ```
 /interface bridge port
@@ -315,7 +338,7 @@ add export-route-targets=65000:2025 import-route-targets=65000:2025 interfaces=l
 
 ```
 
-#### Verification MPLS L3VPN Example
+#### 2. Verification MPLS L3VPN Example
 * CE12
 ```
 [admin@CE12] > ip route vrf print brief
@@ -344,9 +367,9 @@ Flags: L - label-present
  2 L 65000:2025                    10.200.0.0/30                         l3vpn-2025           16
 ```
 
-## Verification with Script
+## H. Verification
 
-#### Example Verification (Traceroute)
+#### 1. Example Verification (Traceroute)
 
 <p align="center">
 <img src="Verification/Traceroute Test-3.png">
@@ -354,13 +377,13 @@ Flags: L - label-present
 
 * References Files Verification : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Verification">Verification with Script</a>
 
-#### Step Verification via SecureCRT
+#### 2. Step Verification via SecureCRT
 
   1. Click File -> Log Session -> Rename File -> Save (Create Log)
   2. Script Run -> Select Filename "verification.vbs" -> Run (Running Script)
   3. Click File -> Log Session (Stop Log)
 
-#### Script Verification (VBS Script)
+#### 3. Script Verification (VBS Script)
 
 ```
 # $language = "VBScript"
