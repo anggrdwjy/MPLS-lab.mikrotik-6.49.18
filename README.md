@@ -11,7 +11,7 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 #### Information
 * [A. Overview Lab](#a-overview-lab)
 * [B. Topology](#b-topology)
-* [C. Routing OSPFv](#c-routing-ospfv2)
+* [C. Routing OSPFv2](#c-routing-ospfv2)
 * [D. MPLS LDP](#d-mpls-ldp)
 * [E. VPLS](#e-vpls)
 * [F. IBGP Router Reflector](#f-ibgp-router-reflector)
