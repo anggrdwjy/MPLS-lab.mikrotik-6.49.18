@@ -29,27 +29,13 @@ This MPLS lab runs on Proxmox and PNETLAB with specifications of 4Core CPU, 16GB
 * This Lab Only Testing, No Recommend For Production
 
 ## B. Topology
-#### 1. Topology Lab MPLS
+#### Topology Lab MPLS
 
 <p align="center">
 <img src="Topology/Topology-MPLS-MikroTik-v2.png">
 </p>
 
 * References Topology : <a href="https://github.com/anggrdwjy/MPLS-lab.mikrotik-6.49.18/tree/main/Topology">Topology</a>
-
-#### 2. IP Point to Point
-<p align="left">
-<img src="Topology/IP Point-to-Point.jpeg">
-</p>
-
-#### 3. IP Loopback CE and PE
-<p align="left">
-<img src="Topology/Loopback CE.jpeg">
-</p>
-
-<p align="left">
-<img src="Topology/Loopback PE.jpeg">
-</p>
 
 ## C. Routing OSPFv2
 
